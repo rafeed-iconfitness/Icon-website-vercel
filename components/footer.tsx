@@ -3,16 +3,37 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import Image from "next/image"
-import { Twitter, Facebook, Instagram, Linkedin } from "lucide-react"
-import { AppDownloadWidgets } from "./app_download_widgets"
+import { Instagram, ChevronDown } from "lucide-react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { cn } from "@/lib/utils"
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 import { ContactForm } from "@/components/contact-form"
+
+const legalPages = [
+  { href: "/privacy", label: "Privacy Policy" },
+  { href: "/terms", label: "Terms & Conditions" },
+  { href: "/cookie-notice", label: "Cookie Policy" },
+  { href: "/eula", label: "EULA" },
+  { href: "/disclaimer", label: "Disclaimer" },
+  { href: "/refund-policy", label: "Refund Policy" },
+]
 
 export function Footer() {
   const pathname = usePathname()
   const [contactDialogOpen, setContactDialogOpen] = useState(false)
+  const [legalDropdownOpen, setLegalDropdownOpen] = useState(false)
+  const dropdownRef = useRef<HTMLDivElement>(null)
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setLegalDropdownOpen(false)
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => document.removeEventListener("mousedown", handleClickOutside)
+  }, [])
 
   return (
     <>
@@ -41,16 +62,35 @@ export function Footer() {
 
           <div className="mt-8 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-white/60">
             <div>© 2025 ICON. All rights reserved.</div>
-            <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
-              <Link href="/privacy" className="hover:text-white transition-colors">
-                Privacy Policy
-              </Link>
-              <Link href="/terms" className="hover:text-white transition-colors">
-                Terms & Conditions
-              </Link>
-              <Link href="/cookie-notice" className="hover:text-white transition-colors">
-                Cookie Notice
-              </Link>
+
+            {/* Legal Dropdown */}
+            <div className="relative" ref={dropdownRef}>
+              <button
+                onClick={() => setLegalDropdownOpen(!legalDropdownOpen)}
+                className="flex items-center gap-2 text-white/60 hover:text-white transition-colors px-3 py-1.5 rounded-lg hover:bg-white/5"
+              >
+                <span>Legal</span>
+                <ChevronDown className={cn(
+                  "w-4 h-4 transition-transform duration-200",
+                  legalDropdownOpen && "rotate-180"
+                )} />
+              </button>
+
+              {/* Dropdown Menu */}
+              {legalDropdownOpen && (
+                <div className="absolute right-0 bottom-full mb-2 w-56 rounded-xl bg-zinc-900 border border-white/10 shadow-xl py-2 z-50">
+                  {legalPages.map((page) => (
+                    <Link
+                      key={page.href}
+                      href={page.href}
+                      onClick={() => setLegalDropdownOpen(false)}
+                      className="block px-4 py-2.5 text-sm text-white/70 hover:text-white hover:bg-white/5 transition-colors"
+                    >
+                      {page.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -70,3 +110,4 @@ export function Footer() {
     </>
   )
 }
+

@@ -43,6 +43,9 @@ export function HeroSection() {
                 </div>
             </motion.div>
 
+            {/* Bottom Fade to Black */}
+            <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black via-black/80 to-transparent z-[1] pointer-events-none" />
+
             {/* Content */}
             <motion.div
                 initial={{ opacity: 0, x: -30 }}

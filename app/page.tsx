@@ -10,6 +10,7 @@ import { HeroSection } from "@/components/hero-section"
 import { FeatureSection } from "@/components/feature-section"
 import { WaitlistButton } from "@/components/waitlist-button"
 import { HowItWorks } from "@/components/how-it-works"
+import { WhyItWorks } from "@/components/why-it-works"
 import { motion } from "framer-motion"
 
 export default function HomePage() {
@@ -22,6 +23,8 @@ export default function HomePage() {
       <FeatureSection />
 
       <HowItWorks />
+
+      <WhyItWorks />
 
       {/* FAQ Section */}
       <motion.section

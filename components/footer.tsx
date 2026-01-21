@@ -8,6 +8,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { cn } from "@/lib/utils"
 import { useState, useRef, useEffect } from "react"
 import { ContactForm } from "@/components/contact-form"
+import { motion } from "framer-motion"
 
 const legalPages = [
   { href: "/privacy", label: "Privacy Policy" },
@@ -39,7 +40,13 @@ export function Footer() {
     <>
       <footer className="bg-black text-white py-12 border-t border-white/10">
         <div className="w-full mx-auto max-w-[1200px] px-8">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="flex flex-col md:flex-row justify-between items-center gap-6"
+          >
             <div className="flex items-center gap-1">
               <div className="text-2xl font-bold flex flex-row gap-2 justify-center items-center">
                 <Image
@@ -58,9 +65,15 @@ export function Footer() {
                 <Instagram className="w-6 h-6" />
               </Link>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="mt-8 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-white/60">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="mt-8 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-white/60"
+          >
             <div>© 2025 ICON. All rights reserved.</div>
 
             {/* Legal Dropdown */}
@@ -92,7 +105,7 @@ export function Footer() {
                 </div>
               )}
             </div>
-          </div>
+          </motion.div>
         </div>
       </footer>
 
@@ -101,7 +114,7 @@ export function Footer() {
           <DialogHeader>
             <DialogTitle>Contact Us</DialogTitle>
             <DialogDescription>
-              Get in touch with our team. We'd love to hear from you.
+              Get in touch with our team. We&apos;d love to hear from you.
             </DialogDescription>
           </DialogHeader>
           <ContactForm />
@@ -110,4 +123,5 @@ export function Footer() {
     </>
   )
 }
+
 

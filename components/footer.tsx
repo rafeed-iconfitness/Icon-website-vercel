@@ -48,16 +48,16 @@ export function Footer() {
             className="flex flex-col md:flex-row justify-between items-center gap-6"
           >
             <div className="flex items-center gap-1">
-              <div className="text-2xl font-bold flex flex-row gap-2 justify-center items-center">
+              <Link href="/" className="flex items-center">
                 <Image
-                  src="/icon.svg"
+                  src="/Group 7.svg"
                   alt="ICON"
-                  width={35}
-                  height={52}
+                  width={120}
+                  height={40}
                   className="w-auto h-8 md:h-10"
+                  priority
                 />
-                <span className="text-white font-bold text-xl tracking-tighter italic">ICON</span>
-              </div>
+              </Link>
             </div>
 
             <div className="flex items-center gap-6">

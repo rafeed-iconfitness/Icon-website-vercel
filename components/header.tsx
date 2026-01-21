@@ -129,7 +129,7 @@ export function Header() {
               {buttonText}
             </WaitlistButton>
             <div
-              className={styles.hamburger}
+              className={cn(styles.hamburger, menuOpen ? styles.open : '')}
               onClick={() => setMenuOpen(!menuOpen)}
             >
               <div className={styles.bar}></div>

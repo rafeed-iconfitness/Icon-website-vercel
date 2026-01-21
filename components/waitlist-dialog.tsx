@@ -33,8 +33,21 @@ function SubmitButton() {
     )
 }
 
-export function WaitlistDialog({ children }: { children?: React.ReactNode }) {
-    const [open, setOpen] = useState(false)
+export function WaitlistDialog({
+    children,
+    open: controlledOpen,
+    onOpenChange: setControlledOpen
+}: {
+    children?: React.ReactNode
+    open?: boolean
+    onOpenChange?: (open: boolean) => void
+}) {
+    const [internalOpen, setInternalOpen] = useState(false)
+
+    const isControlled = controlledOpen !== undefined
+    const open = isControlled ? controlledOpen : internalOpen
+    const setOpen = isControlled ? setControlledOpen : setInternalOpen
+
     const [state, setState] = useState<{ success: boolean; message: string } | null>(null)
 
     async function handleSubmit(formData: FormData) {

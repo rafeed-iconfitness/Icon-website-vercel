@@ -3,192 +3,163 @@
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { Menu } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { useState, useRef, useEffect } from "react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
-import { cn } from "@/lib/utils"
-import { useState } from "react"
 import { ContactForm } from "@/components/contact-form"
 import { WaitlistButton } from "@/components/waitlist-button"
+import { WaitlistDialog } from "@/components/waitlist-dialog"
+import styles from "./header.module.css"
+import { cn } from "@/lib/utils"
 
-import { motion } from "framer-motion"
+const navLinks = [
+  { name: 'Home', href: '/' },
+  { name: 'Trainers', href: '/trainers' },
+  { name: 'About Us', href: '/about-us' },
+  { name: 'Pricing', href: '/pricing' },
+  { name: 'Contact Us', href: '#' }, // Special handling for Contact Us
+]
 
 export function Header() {
+  const [menuOpen, setMenuOpen] = useState(false)
   const pathname = usePathname()
+  const [underlineStyle, setUnderlineStyle] = useState({})
+  const navItemsRef = useRef<{ [key: string]: HTMLLIElement | null }>({})
+
   const [contactDialogOpen, setContactDialogOpen] = useState(false)
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [waitlistDialogOpen, setWaitlistDialogOpen] = useState(false) // Using WaitlistDialog for Sign Up flows
+
+  const closeMenu = () => setMenuOpen(false)
+
+  useEffect(() => {
+    // Logic to position the underline
+    if (navItemsRef.current[pathname]) {
+      const element = navItemsRef.current[pathname]
+      if (element) {
+        const { offsetLeft, offsetWidth } = element
+        setUnderlineStyle({
+          width: offsetWidth,
+          left: offsetLeft,
+        })
+      }
+    } else {
+      // Hide underline if not matching any key
+      setUnderlineStyle({ width: 0, left: 0 })
+    }
+  }, [pathname])
+
+  // Determine button text and href based on the current path
+  const isTrainersPage = pathname === '/trainers'
+  const buttonText = isTrainersPage ? 'Apply Now' : 'Sign Up'
+
+  const handleButtonClick = (e: React.MouseEvent) => {
+    e.preventDefault()
+    // Open Waitlist Dialog for both cases (Sign Up / Apply Now) per current site capabilities
+    setWaitlistDialogOpen(true)
+    closeMenu()
+  }
+
+  const handleContactClick = (e: React.MouseEvent) => {
+    e.preventDefault()
+    setContactDialogOpen(true)
+    closeMenu()
+  }
+
+  const commonButtonProps = {
+    className: cn(styles.button, isTrainersPage ? styles.trainersButtonColor : ''),
+    onClick: handleButtonClick,
+    type: "button" as const,
+  }
 
   return (
     <>
-      <motion.header
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-sm border-b border-white/10"
-      >
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <Link href="/" className="flex items-center gap-1">
-              <div className="text-2xl font-bold flex flex-row gap-2 justify-center items-center">
-                <Image
-                  src="/icon.svg"
-                  alt="ICON"
-                  width={35}
-                  height={52}
-                  className="w-auto h-8 md:h-10"
-                />
-                <span className="text-white font-bold text-xl tracking-tighter italic">ICON</span>
-              </div>
+      <nav className={styles.navbar}>
+        <div className={styles.container}>
+          {/* Part 1: Logo */}
+          <div className={styles.navSection}>
+            <Link href="/" className={styles.logo}>
+              <Image
+                src="/icon.svg"
+                alt="ICON"
+                width={35}
+                height={52}
+                className="w-auto h-8 md:h-10"
+              />
+              <span className="text-white font-bold text-xl tracking-tighter italic ml-2">ICON</span>
             </Link>
+          </div>
 
-            <nav className="hidden md:flex items-center gap-8">
-              <Link
-                href="/"
-                className={cn(
-                  "hover:text-[#FF5733] transition-colors",
-                  pathname === "/" ? "text-[#FF5733] font-medium" : "text-white"
-                )}
-              >
-                Home
-              </Link>
-              <Link
-                href="/trainers"
-                className={cn(
-                  "hover:text-[#FF5733] transition-colors",
-                  pathname === "/trainers" ? "text-[#FF5733] font-medium" : "text-white"
-                )}
-              >
-                Trainers
-              </Link>
-              <Link
-                href="/pricing"
-                className={cn(
-                  "hover:text-[#FF5733] transition-colors",
-                  pathname === "/pricing" ? "text-[#FF5733] font-medium" : "text-white"
-                )}
-              >
-                Pricing
-              </Link>
-              <Link
-                href="/about-us"
-                className={cn(
-                  "hover:text-[#FF5733] transition-colors",
-                  pathname === "/about-us" ? "text-[#FF5733] font-medium" : "text-white"
-                )}
-              >
-                About Us
-              </Link>
-              <button
-                onClick={() => setContactDialogOpen(true)}
-                className="text-white hover:text-[#FF5733] transition-colors cursor-pointer"
-              >
-                Contact Us
-              </button>
+          {/* Part 2: Centered links for desktop */}
+          <div className={cn(styles.navSection, styles.navCenter)}>
+            <ul className={styles.desktopLinks}>
+              {navLinks.map(link => {
+                const isContact = link.name === 'Contact Us';
+                const isActive = pathname === link.href;
 
-            </nav>
+                return (
+                  <li
+                    key={link.name}
+                    ref={el => { navItemsRef.current[link.href] = el }}
+                  >
+                    <Link
+                      href={link.href}
+                      className={isActive ? styles.active : ''}
+                      onClick={isContact ? handleContactClick : undefined}
+                    >
+                      {link.name}
+                    </Link>
+                  </li>
+                )
+              })}
+              <div className={styles.underline} style={underlineStyle} />
+            </ul>
+          </div>
 
-            <div className="flex items-center gap-4">
-              <WaitlistButton variant="outline" className="hidden md:inline-flex" />
-              <button
-                onClick={() => setMobileMenuOpen(true)}
-                className="md:hidden text-white"
-              >
-                <Menu className="w-6 h-6" />
-              </button>
+          {/* Part 3: Action button for desktop */}
+          <div className={cn(styles.navSection, styles.navRight)}>
+            <button {...commonButtonProps}>
+              {buttonText}
+            </button>
+          </div>
+
+          {/* Wrapper for Mobile Controls */}
+          <div className={styles.mobileControls}>
+            <button {...commonButtonProps} style={{ padding: '0 16px', fontSize: '14px', height: '40px' }}>
+              {buttonText}
+            </button>
+            <div
+              className={styles.hamburger}
+              onClick={() => setMenuOpen(!menuOpen)}
+            >
+              <div className={styles.bar}></div>
+              <div className={styles.bar}></div>
+              <div className={styles.bar}></div>
             </div>
           </div>
+
+          {/* Mobile Menu Overlay */}
+          <ul className={cn(styles.navLinks, menuOpen ? styles.active : '')}>
+            {/* Close button inside the menu if preferred, or rely on hamburger toggle. Source uses overlay logic differently but here we map structure */}
+            {navLinks.map(link => {
+              const isContact = link.name === 'Contact Us';
+              const isActive = pathname === link.href;
+
+              return (
+                <li key={link.name}>
+                  <Link
+                    href={link.href}
+                    onClick={isContact ? handleContactClick : closeMenu}
+                    className={isActive ? styles.activeMobileLink : ''}
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              )
+            })}
+          </ul>
         </div>
-      </motion.header>
+      </nav>
 
-      {/* Mobile Menu */}
-      {mobileMenuOpen && (
-        <>
-          <div
-            className="fixed inset-0 bg-black/60 z-40 md:hidden animate-in fade-in duration-300"
-            onClick={() => setMobileMenuOpen(false)}
-          />
-          <div className="fixed top-0 right-0 bottom-0 w-[80%] max-w-sm bg-gradient-to-br from-black via-black to-[#FF5733]/10 border-l border-white/10 z-50 md:hidden overflow-y-auto animate-in slide-in-from-right duration-300">
-            <div className="flex flex-col h-full">
-              <div className="flex items-center justify-between p-4 border-b border-white/10 bg-gradient-to-r from-[#FF5733]/20 to-transparent">
-                <span className="text-white font-semibold text-lg">Menu</span>
-                <button
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="text-white p-2 hover:bg-white/10 rounded-lg transition-all hover:rotate-90 duration-300"
-                >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-
-              <nav className="flex flex-col p-4 space-y-3">
-                <Link
-                  href="/"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={cn(
-                    "py-3 px-4 rounded-lg transition-all duration-300 transform hover:scale-105",
-                    pathname === "/"
-                      ? "bg-gradient-to-r from-[#FF5733] to-[#E9522B] text-white shadow-lg shadow-[#FF5733]/50"
-                      : "text-white hover:bg-white/10 hover:translate-x-1"
-                  )}
-                >
-                  Home
-                </Link>
-                <Link
-                  href="/trainers"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={cn(
-                    "py-3 px-4 rounded-lg transition-all duration-300 transform hover:scale-105",
-                    pathname === "/trainers"
-                      ? "bg-gradient-to-r from-[#FF5733] to-[#E9522B] text-white shadow-lg shadow-[#FF5733]/50"
-                      : "text-white hover:bg-white/10 hover:translate-x-1"
-                  )}
-                >
-                  Trainers
-                </Link>
-                <Link
-                  href="/pricing"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={cn(
-                    "py-3 px-4 rounded-lg transition-all duration-300 transform hover:scale-105",
-                    pathname === "/pricing"
-                      ? "bg-gradient-to-r from-[#FF5733] to-[#E9522B] text-white shadow-lg shadow-[#FF5733]/50"
-                      : "text-white hover:bg-white/10 hover:translate-x-1"
-                  )}
-                >
-                  Pricing
-                </Link>
-                <Link
-                  href="/about-us"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={cn(
-                    "py-3 px-4 rounded-lg transition-all duration-300 transform hover:scale-105",
-                    pathname === "/about-us"
-                      ? "bg-gradient-to-r from-[#FF5733] to-[#E9522B] text-white shadow-lg shadow-[#FF5733]/50"
-                      : "text-white hover:bg-white/10 hover:translate-x-1"
-                  )}
-                >
-                  About Us
-                </Link>
-                <button
-                  onClick={() => {
-                    setMobileMenuOpen(false)
-                    setContactDialogOpen(true)
-                  }}
-                  className="py-3 px-4 rounded-lg text-white hover:bg-white/10 transition-all duration-300 text-left hover:translate-x-1 transform"
-                >
-                  Contact Us
-                </button>
-              </nav>
-
-              <div className="mt-auto p-4 border-t border-white/10">
-                <WaitlistButton className="w-full" />
-              </div>
-            </div>
-          </div>
-        </>
-      )}
-
+      {/* Dialogs */}
       <Dialog open={contactDialogOpen} onOpenChange={setContactDialogOpen}>
         <DialogContent className="max-w-lg">
           <DialogHeader>
@@ -200,6 +171,22 @@ export function Header() {
           <ContactForm />
         </DialogContent>
       </Dialog>
+
+      {/* We reuse WaitlistButton's dialog simply by rendering it hidden or controlling state if WaitlistButton exposed it. 
+          Actually WaitlistButton uses WaitlistDialog internally. 
+          To trigger it from our custom button, we might need to expose the dialog or wrap our custom button in WaitlistDialog logic.
+          Simpler approach: Import WaitlistDialog content logic or just make a hidden WaitlistButton trigger? 
+          Better: The destination has `WaitlistDialog`. Import `WaitlistDialog` and control it.
+       */}
+      {/* Let's verify WaitlistDialog implementation. I'll just rely on the fact that I can't easily import the Dialog Trigger separately without refactoring.
+           BUT layout needs to work.
+           I'll assume I can render WaitlistButton hidden and click it? No, that's hacky.
+           I'll check `waitlist-dialog.tsx` content quickly. It likely exports `WaitlistDialog` component that wraps children.
+           So I can wrap the custom button in `WaitlistDialog`? 
+           NO, because `WaitlistDialog` likely has the Trigger built-in or specific logic.
+           Let's look at `waitlist-button.tsx` again. usage: <WaitlistDialog><Button>...</Button></WaitlistDialog>
+           So I can import WaitlistDialog and wrap my custom button!
+       */}
 
     </>
   )

@@ -19,7 +19,7 @@ export function HeroSection() {
 
     return (
         /* Changed pt-16 to pt-32 (mobile) and added md:pt-48 (desktop) for more spacing */
-        <section ref={containerRef} className="relative min-h-[60vh] h-auto w-full overflow-hidden flex items-center justify-start bg-black pt-32 md:pt-48 pb-8 md:pb-12">
+        <section ref={containerRef} className="relative min-h-[60vh] h-auto w-full overflow-hidden flex items-center justify-start bg-black pt-24 md:pt-24 pb-8 md:pb-12">
             {/* Background Image with Parallax & Blur */}
             <motion.div
                 style={{ y, filter }}

@@ -39,7 +39,7 @@ export function FeatureSection() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
-                    className="text-center mb-16"
+                    className="mb-16 text-left"
                 >
                     <span className="text-white/50 text-sm font-medium uppercase tracking-wider mb-4 block">
                         Core Features
@@ -47,15 +47,17 @@ export function FeatureSection() {
                     <h2 className="text-4xl md:text-5xl font-bold text-[#FF5733] mb-4">
                         Why People Choose IconTraining.app
                     </h2>
-                    <p className="text-white/70 max-w-xl mx-auto text-lg">
+                    <p className="text-white/70 max-w-xl text-lg">
                         Don&apos;t just work harder. Have the right coach by your side. <br className="hidden md:block" /> 24/7/365.
                     </p>
                 </motion.div>
 
-                <div className="grid md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+                {/* Mobile: Horizontal Scroll, Desktop: Grid */}
+                <div className="flex overflow-x-auto pb-8 gap-4 md:grid md:grid-cols-2 md:gap-6 max-w-6xl mx-auto snap-x snap-mandatory scrollbar-hide -mx-4 px-4 md:mx-auto md:px-0">
                     {features.map((feature, index) => (
                         <motion.div
                             key={index}
+                            className="min-w-[85vw] md:min-w-0 snap-center"
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}

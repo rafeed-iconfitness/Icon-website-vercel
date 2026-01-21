@@ -23,58 +23,60 @@ export function HeroSection() {
             {/* Background Image with Parallax & Blur */}
             <motion.div
                 style={{ y, filter }}
-                // Changes: 
-                // - Added 'flex items-center justify-center' to center the image within the container
-                className="absolute -top-[5vh] left-0 w-full h-[110vh] z-0 flex items-center justify-center"
+                className="absolute inset-0 z-0 flex items-center justify-center md:justify-end"
             >
-                <Image
-                    src="/IconGuyWithPhone.png"
-                    alt="Icon Fitness Background"
-                    width={1200}
-                    height={1200}
-                    className="object-cover object-center"
-                    priority
-                />
-                {/* Gradient Overlay for text readability */}
-                <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
+                <div className="relative w-full h-full md:w-1/2 md:ml-auto">
+                    <Image
+                        src="/IconGuyWithPhone.png"
+                        alt="Icon Fitness Background"
+                        fill
+                        className="object-cover object-center md:object-left"
+                        priority
+                    />
+                    {/* Gradient Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-black via-black/60 to-transparent md:bg-gradient-to-l md:from-transparent md:via-black/20 md:to-black" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent md:hidden" />
+                </div>
             </motion.div>
 
             {/* Content */}
             <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, delay: 0.2, ease: "easeOut", staggerChildren: 0.2 }}
-                className="relative z-10 container mx-auto px-4 text-left pl-8 md:pl-16 lg:pl-24"
+                className="relative z-10 container mx-auto px-4 md:px-6 lg:px-8 h-full flex flex-col justify-center max-w-7xl"
             >
-                <motion.h1
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.3 }}
-                    className="text-5xl md:text-7xl lg:text-8xl font-bold text-white tracking-tight leading-tight mb-8"
-                >
-                    You Don&apos;t Need
-                    <br />
-                    More <TypewriterText />
-                    <br />
-                    You Need an <span className="text-[#FF5733]">Icon.</span>
-                </motion.h1>
+                <div className="max-w-xl lg:max-w-2xl">
+                    <motion.h1
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.3 }}
+                        className="text-5xl md:text-6xl lg:text-8xl font-black text-white tracking-tighter leading-[0.9] mb-8 font-sans"
+                    >
+                        YOU DON&apos;T NEED
+                        <br />
+                        MORE <span className="text-white/50"><TypewriterText /></span>
+                        <br />
+                        YOU NEED AN <span className="text-[#FF5733]">ICON.</span>
+                    </motion.h1>
 
-                <motion.p
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.5 }}
-                    className="text-xl text-white/80 max-w-2xl mb-10"
-                >
-                    Download your favorite athlete&apos;s brain. Straight to your phone.
-                </motion.p>
+                    <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.5 }}
+                        className="text-xl text-white/80 max-w-2xl mb-10"
+                    >
+                        Download your favorite athlete&apos;s brain. Straight to your phone.
+                    </motion.p>
 
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.7 }}
-                >
-                    <WaitlistButton variant="pill" showIcon={true} />
-                </motion.div>
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.7 }}
+                    >
+                        <WaitlistButton variant="pill" showIcon={true} />
+                    </motion.div>
+                </div>
             </motion.div>
         </section>
     )

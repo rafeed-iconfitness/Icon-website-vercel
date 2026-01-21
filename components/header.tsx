@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { Menu } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -29,18 +30,14 @@ export function Header() {
           <div className="flex items-center justify-between h-16">
             <Link href="/" className="flex items-center gap-1">
               <div className="text-2xl font-bold flex flex-row gap-2 justify-center items-center">
-                <svg width="35" height="52" viewBox="0 0 35 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <g clipPath="url(#clip0_2914_19441)">
-                    <path d="M-0.00292969 51.9929L34.6637 6.07031L6.46246 15.682L14.1911 20.4611L-0.00292969 51.9929Z" fill="#E9522B" />
-                    <path d="M26.7041 4.13997C26.7041 6.40481 24.8136 8.33561 22.6162 8.31779C20.4478 8.29997 18.5973 6.39591 18.6084 4.1912C18.6173 1.89518 20.4878 -0.00666339 22.7363 1.75485e-05C24.927 0.00669849 26.7041 1.86177 26.7041 4.13997Z" fill="#E9522B" />
-                  </g>
-                  <defs>
-                    <clipPath id="clip0_2914_19441">
-                      <rect width="34.6667" height="52" fill="white" />
-                    </clipPath>
-                  </defs>
-                </svg>
-                <span className="text-white italic">ICON</span>
+                <Image
+                  src="/icon.svg"
+                  alt="ICON"
+                  width={35}
+                  height={52}
+                  className="w-auto h-8 md:h-10"
+                />
+                <span className="text-white font-bold text-xl tracking-tighter italic">ICON</span>
               </div>
             </Link>
 
@@ -87,6 +84,7 @@ export function Header() {
               >
                 Contact Us
               </button>
+
             </nav>
 
             <div className="flex items-center gap-4">

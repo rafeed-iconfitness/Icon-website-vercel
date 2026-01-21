@@ -22,9 +22,9 @@ export function WaitlistButton({
     const baseStyles = "transition-all duration-300 transform"
 
     const variants = {
-        default: "bg-[#d14e30] hover:bg-[#b04026] text-white",
+        default: "bg-[#d14e30] hover:bg-[#b04026] text-white shadow-[0_0_15px_rgba(209,78,48,0.3)] hover:shadow-[0_0_25px_rgba(209,78,48,0.5)]",
         outline: "bg-transparent hover:bg-white/10 text-white border border-white/20",
-        pill: "bg-[#d14e30] hover:bg-[#b04026] text-white rounded-full px-8 h-14 text-lg font-medium shadow-lg hover:shadow-xl hover:scale-105"
+        pill: "bg-[#d14e30] hover:bg-[#b04026] text-white rounded-full px-8 h-14 text-lg font-medium shadow-[0_0_20px_rgba(209,78,48,0.4)] hover:shadow-[0_0_30px_rgba(209,78,48,0.6)] hover:scale-105"
     }
 
     return (

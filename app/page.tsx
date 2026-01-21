@@ -133,35 +133,7 @@ export default function HomePage() {
         </div>
       </motion.section>
 
-      {/* Stats Section */}
-      <motion.section
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="py-16 px-4 sm:px-6 lg:px-8"
-      >
-        <div className="container mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
-            <div className="text-center">
-              <div className="text-4xl font-bold text-white mb-2">4.9</div>
-              <div className="text-white/60 text-sm">App Store Rating</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-white mb-2">92%</div>
-              <div className="text-white/60 text-sm">Goal Success Rate</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-white mb-2">120K+</div>
-              <div className="text-white/60 text-sm">Workouts Logged</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-white mb-2">100K+</div>
-              <div className="text-white/60 text-sm">Active Users Worldwide</div>
-            </div>
-          </div>
-        </div>
-      </motion.section>
+
 
       {/* CTA Section */}
       <motion.section
@@ -202,54 +174,7 @@ export default function HomePage() {
         </div>
       </motion.section>
 
-      {/* Contact Form */}
-      <motion.section
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="py-16 px-4 sm:px-6 lg:px-8"
-      >
-        <div className="container mx-auto max-w-2xl">
-          <h2 className="text-3xl font-bold text-white mb-8">Contact Us</h2>
-          <form className="space-y-6">
-            <div>
-              <label htmlFor="name" className="block text-white mb-2 text-sm">
-                Name
-              </label>
-              <input
-                type="text"
-                id="name"
-                className="w-full bg-zinc-900 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#FF5733]"
-                placeholder="Your name"
-              />
-            </div>
-            <div>
-              <label htmlFor="email" className="block text-white mb-2 text-sm">
-                Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                className="w-full bg-zinc-900 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#FF5733]"
-                placeholder="your.email@example.com"
-              />
-            </div>
-            <div>
-              <label htmlFor="message" className="block text-white mb-2 text-sm">
-                Message
-              </label>
-              <textarea
-                id="message"
-                rows={5}
-                className="w-full bg-zinc-900 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#FF5733]"
-                placeholder="How can we help?"
-              />
-            </div>
-            <Button className="w-full bg-[#FF5733] hover:bg-[#FF5733]/90 text-white h-12">Send Message</Button>
-          </form>
-        </div>
-      </motion.section>
+
 
       <Footer />
     </div>

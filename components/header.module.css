@@ -7,9 +7,17 @@
 
 /* Keep your existing styles for the navbar glow effect */
 @keyframes pulse-brightness {
-  0% { opacity: 0.3; }
-  50% { opacity: 0.7; }
-  100% { opacity: 0.3; }
+  0% {
+    opacity: 0.3;
+  }
+
+  50% {
+    opacity: 0.7;
+  }
+
+  100% {
+    opacity: 0.3;
+  }
 }
 
 .navbar {
@@ -18,9 +26,10 @@
   left: 0;
   width: 100%;
   /* --- Glass Effect Styles --- */
-  background-color: rgba(14, 19, 21, 0.6); 
+  background-color: rgba(14, 19, 21, 0.6);
   backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px); /* For Safari browser support */
+  -webkit-backdrop-filter: blur(12px);
+  /* For Safari browser support */
   /* --- End of Glass Effect Styles --- */
   padding: 1rem 2rem;
   z-index: 1000;
@@ -35,7 +44,7 @@
   width: 100%;
   height: 1px;
   margin: 0 auto;
-  background: linear-gradient( to right, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100% );
+  background: linear-gradient(to right, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
 }
 
 .navbar::after {
@@ -47,11 +56,12 @@
   margin: auto;
   width: 60%;
   height: 20px;
-  background: radial-gradient( ellipse at 50% 75%, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 70% );
+  background: radial-gradient(ellipse at 50% 75%, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 70%);
   filter: blur(10px);
   animation: pulse-brightness 5s ease-in-out infinite;
   pointer-events: none;
 }
+
 /* --- End of glow effect styles --- */
 
 
@@ -59,7 +69,8 @@
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
-  justify-content: space-between; /* Use space-between to push items apart */
+  justify-content: space-between;
+  /* Use space-between to push items apart */
   align-items: center;
   position: relative;
   z-index: 1;
@@ -67,59 +78,72 @@
 
 /* New layout styles for desktop */
 .navSection {
-  flex: 1; /* Give each section equal space */
   display: flex;
+  align-items: center;
+}
+
+.navLeft {
+  flex: 0 0 200px;
+  /* Fixed width for logo area to prevent shift */
+  justify-content: flex-start;
 }
 
 .navCenter {
-  justify-content: center; /* Center the content (the ul) within this section */
+  flex: 1;
+  /* Center section takes available space */
+  justify-content: center;
 }
 
 .navRight {
-  justify-content: flex-end; /* Align the content (the button) to the right of this section */
+  flex: 0 0 200px;
+  /* Fixed width for button area to prevent shift */
+  justify-content: flex-end;
 }
 
 .desktopLinks {
-  position: relative; /* This is key for positioning the underline */
+  position: relative;
   font-family: inherit;
   list-style: none;
   display: flex;
-  align-items: baseline;
-  gap: 2rem;
+  align-items: center;
+  gap: 2.5rem;
   margin: 0;
   padding: 0;
 }
 
 .desktopLinks li {
   position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .desktopLinks a {
-  color: #ffffff; /* Default to white or var(--foreground) */
+  color: #ffffff;
   text-decoration: none;
   font-size: 0.9rem;
-  transition: color 0.2s ease-in-out;
-  opacity: 0.8;
+  transition: all 0.2s ease-in-out;
+  opacity: 0.7;
+  white-space: nowrap;
 }
 
 .desktopLinks a:hover {
   opacity: 1;
-  color: #FF5733; /* Hover color */
+  color: #FF5733;
 }
 
 /* --- Active Link Styles with Underline --- */
 .desktopLinks a.active {
-  color: #ffffff; /* Change link color to white when active */
-  font-weight: 500;
+  color: #ffffff;
   opacity: 1;
 }
 
 .underline {
   position: absolute;
-  bottom: -5px;
+  bottom: -8px;
   height: 2px;
-  background-color: #ffffff; /* Change the underline color to white */
-  transition: left 0.25s ease-out, width 0.25s ease-out;
+  background-color: #FF5733;
+  /* Changed to orange for better visibility */
+  transition: left 0.3s ease-in-out, width 0.3s ease-in-out;
 }
 
 .logo {
@@ -163,6 +187,7 @@
   0% {
     --gradient-angle: 0deg;
   }
+
   100% {
     --gradient-angle: 360deg;
   }
@@ -171,16 +196,16 @@
 .button::before {
   content: '';
   position: absolute;
-  z-index: -1; /* Default: behind the button content */
+  z-index: -1;
+  /* Default: behind the button content */
   inset: 0;
   border-radius: inherit;
   padding: 1.5px;
-  background: conic-gradient(
-    from var(--gradient-angle),
-    transparent 50%,
-    #FF5733, /* Default orange glow */
-    transparent
-  );
+  background: conic-gradient(from var(--gradient-angle),
+      transparent 50%,
+      #FF5733,
+      /* Default orange glow */
+      transparent);
   animation: rotate-border 4s linear infinite;
   -webkit-mask:
     linear-gradient(#fff 0 0) content-box,
@@ -195,7 +220,8 @@
 .button {
   appearance: none;
   position: relative;
-  z-index: 1; /* Ensure the button itself has a z-index */
+  z-index: 1;
+  /* Ensure the button itself has a z-index */
   border-radius: 8px;
   height: 48px;
   padding: 0 24px;
@@ -216,10 +242,11 @@
 
 @media (hover: hover) and (pointer: fine) {
   .button:hover {
-    background-color: #FF5733; /* Default orange hover */
+    background-color: #FF5733;
+    /* Default orange hover */
     color: #ffffff;
   }
-  
+
   .button:hover::before {
     display: none;
   }
@@ -228,29 +255,36 @@
 /* NEW: Styles for the Trainers page button */
 /* Apply to .button when it also has .trainersButtonColor */
 .button.trainersButtonColor {
-  background-color: transparent; /* Changed to transparent */
-  color: white; /* White text for contrast */
-  z-index: 2; /* Make button content appear above the glow */
+  background-color: transparent;
+  /* Changed to transparent */
+  color: white;
+  /* White text for contrast */
+  z-index: 2;
+  /* Make button content appear above the glow */
 }
 
 /* Target the ::before for glow when .button also has .trainersButtonColor */
 .button.trainersButtonColor::before {
-  background: conic-gradient(
-    from var(--gradient-angle),
-    transparent 50%,
-    #3f93cb, /* Blue glow for trainers button */
-    transparent
-  );
-  animation: rotate-border 4s linear infinite; /* Explicitly re-apply animation */
-  z-index: 1; /* Place this just below the button's content */
+  background: conic-gradient(from var(--gradient-angle),
+      transparent 50%,
+      #3f93cb,
+      /* Blue glow for trainers button */
+      transparent);
+  animation: rotate-border 4s linear infinite;
+  /* Explicitly re-apply animation */
+  z-index: 1;
+  /* Place this just below the button's content */
 }
 
 @media (hover: hover) and (pointer: fine) {
+
   /* Target hover for trainers button when .button also has .trainersButtonColor */
   .button.trainersButtonColor:hover {
-    background-color: #3f93cb; /* Blue hover background */
+    background-color: #3f93cb;
+    /* Blue hover background */
     color: #ffffff;
   }
+
   /* Ensure the ::before is hidden on hover for the trainers button too */
   .button.trainersButtonColor:hover::before {
     display: none;
@@ -259,9 +293,15 @@
 
 /* Responsive Styles */
 @media (max-width: 768px) {
+  .navbar {
+    padding: 1rem;
+  }
+
   .container {
-    justify-content: space-between; /* Restore space-between for mobile */
-    gap: 0; /* Remove gap for mobile */
+    justify-content: space-between;
+    /* Restore space-between for mobile */
+    gap: 0;
+    /* Remove gap for mobile */
   }
 
   /* Hide the desktop layout sections */
@@ -270,24 +310,24 @@
   .desktopLinks {
     display: none;
   }
-  
+
   /* Make the logo section not take up 1/3 of the space */
   .navSection {
-      flex: 0 1 auto;
+    flex: 0 1 auto;
   }
 
   /* Show the mobile controls wrapper and align items */
   .mobileControls {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.75rem;
   }
 
   /* Show the hamburger */
   .hamburger {
     display: flex;
   }
-  
+
   /* Show the mobile menu when active */
   .navLinks.active {
     display: flex;
@@ -295,29 +335,31 @@
     left: 0;
     top: 0;
     flex-direction: column;
-    background-color: rgba(20, 20, 20, 0.95);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background-color: rgba(20, 20, 20, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     width: 100%;
     height: 100vh;
     justify-content: center;
     align-items: center;
-    gap: 2rem;
+    gap: 2.5rem;
     padding: 0;
     margin: 0;
     list-style: none;
+    z-index: 1000;
   }
 
   /* Active Link Styles for mobile */
   .navLinks a {
-    font-size: 1.5rem; /* Larger font for mobile */
-    color: rgba(255,255,255,0.7);
+    font-size: 1.75rem;
+    color: rgba(255, 255, 255, 0.7);
     text-decoration: none;
     transition: color 0.2s ease-in-out;
   }
 
   .navLinks a:hover,
-  .navLinks a.activeMobileLink { /* The active link will be white */
+  .navLinks a.activeMobileLink {
+    /* The active link will be white */
     color: #ffffff;
     font-weight: bold;
   }

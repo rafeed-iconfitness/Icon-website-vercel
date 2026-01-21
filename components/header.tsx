@@ -47,9 +47,9 @@ export function Header() {
     }
   }, [pathname])
 
-  // Determine button text and href based on the current path
+  // Determine button text based on the current path
   const isTrainersPage = pathname === '/trainers'
-  const buttonText = isTrainersPage ? 'Apply Now' : 'Sign Up'
+  const buttonText = isTrainersPage ? 'Apply Now' : 'Join Waitlist'
 
   const handleButtonClick = (e: React.MouseEvent) => {
     e.preventDefault()
@@ -65,9 +65,8 @@ export function Header() {
   }
 
   const commonButtonProps = {
-    className: cn(styles.button, isTrainersPage ? styles.trainersButtonColor : ''),
-    onClick: handleButtonClick,
-    type: "button" as const,
+    className: cn(isTrainersPage ? "bg-[#3f93cb] hover:bg-[#327ba8] shadow-[0_0_15px_rgba(63,147,203,0.3)] hover:shadow-[0_0_25px_rgba(63,147,203,0.5)]" : ""),
+    showIcon: true,
   }
 
   return (
@@ -75,16 +74,16 @@ export function Header() {
       <nav className={styles.navbar}>
         <div className={styles.container}>
           {/* Part 1: Logo */}
-          <div className={styles.navSection}>
+          <div className={cn(styles.navSection, styles.navLeft)}>
             <Link href="/" className={styles.logo}>
               <Image
-                src="/icon.svg"
+                src="/Group 7.svg"
                 alt="ICON"
-                width={35}
-                height={52}
+                width={120}
+                height={40}
                 className="w-auto h-8 md:h-10"
+                priority
               />
-              <span className="text-white font-bold text-xl tracking-tighter italic ml-2">ICON</span>
             </Link>
           </div>
 
@@ -116,16 +115,19 @@ export function Header() {
 
           {/* Part 3: Action button for desktop */}
           <div className={cn(styles.navSection, styles.navRight)}>
-            <button {...commonButtonProps}>
+            <WaitlistButton {...commonButtonProps}>
               {buttonText}
-            </button>
+            </WaitlistButton>
           </div>
 
           {/* Wrapper for Mobile Controls */}
           <div className={styles.mobileControls}>
-            <button {...commonButtonProps} style={{ padding: '0 16px', fontSize: '14px', height: '40px' }}>
+            <WaitlistButton
+              {...commonButtonProps}
+              className={cn(commonButtonProps.className, "!h-9 !px-4 !text-sm")}
+            >
               {buttonText}
-            </button>
+            </WaitlistButton>
             <div
               className={styles.hamburger}
               onClick={() => setMenuOpen(!menuOpen)}

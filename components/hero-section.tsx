@@ -2,7 +2,6 @@
 
 import { useRef } from "react"
 import { motion, useScroll, useTransform, useMotionTemplate } from "framer-motion"
-import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import { TypewriterText } from "./typewriter-text"
 import { WaitlistButton } from "./waitlist-button"
@@ -11,30 +10,35 @@ export function HeroSection() {
     const containerRef = useRef<HTMLDivElement>(null)
     const { scrollY } = useScroll()
 
-    // 1. Adjusted Parallax: Reduced range slightly to accommodate the "zoomed out" (shorter) image container
-    const y = useTransform(scrollY, [0, 1000], [0, 200])
+    // Parallax effect
+    const y = useTransform(scrollY, [0, 1000], [0, 300])
 
-    // Blur effect remains strong
-    const blurAmount = useTransform(scrollY, [0, 500], [0, 40])
+    // 1. Reduced Blur: Changed max blur from 40 to 15 for a subtler effect
+    const blurAmount = useTransform(scrollY, [0, 500], [0, 15])
     const filter = useMotionTemplate`blur(${blurAmount}px)`
 
     return (
-        <section ref={containerRef} className="relative h-screen w-full overflow-hidden flex items-center justify-start bg-black">
+        <section ref={containerRef} className="relative h-[60vh] w-full overflow-hidden flex items-center justify-start bg-black pt-16">
             {/* Background Image with Parallax & Blur */}
             <motion.div
                 style={{ y, filter }}
-                className="absolute inset-0 z-0 flex items-center justify-center md:justify-end"
+                className="absolute inset-0 z-0"
             >
-                <div className="relative w-full h-full md:w-1/2 md:ml-auto">
+                {/* 2. Position Adjustment:
+                    - md:left-[40%]: Starts the container 40% from the left (right next to text area)
+                    - md:w-[60%]: Takes up the remaining width
+                */}
+                <div className="relative w-full h-full md:absolute md:left-[55%] md:w-[60%] md:top-0">
                     <Image
                         src="/IconGuyWithPhone.png"
                         alt="Icon Fitness Background"
                         fill
-                        className="object-cover object-center md:object-left"
+                        // md:object-left: Anchors the image to the left of this container (closest to the text)
+                        className="object-contain object-center md:object-left-bottom"
                         priority
                     />
                     {/* Gradient Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-black via-black/60 to-transparent md:bg-gradient-to-l md:from-transparent md:via-black/20 md:to-black" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-black via-black/20 to-transparent" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent md:hidden" />
                 </div>
             </motion.div>
@@ -46,18 +50,20 @@ export function HeroSection() {
                 transition={{ duration: 0.8, delay: 0.2, ease: "easeOut", staggerChildren: 0.2 }}
                 className="relative z-10 container mx-auto px-4 md:px-6 lg:px-8 h-full flex flex-col justify-center max-w-7xl"
             >
-                <div className="max-w-xl lg:max-w-2xl">
+                <div className="max-w-xl lg:max-w-3xl">
                     <motion.h1
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.3 }}
-                        className="text-5xl md:text-6xl lg:text-8xl font-black text-white tracking-tighter leading-[0.9] mb-8 font-sans"
+                        className="text-5xl md:text-7xl lg:text-[100px] font-black text-white tracking-normal leading-[0.85] mb-8 font-sans"
                     >
                         YOU DON&apos;T NEED
                         <br />
-                        MORE <span className="text-white/50"><TypewriterText /></span>
+                        <span className="whitespace-nowrap text-white">
+                            MORE <TypewriterText />
+                        </span>
                         <br />
-                        YOU NEED AN <span className="text-[#FF5733]">ICON.</span>
+                        YOU NEED AN <span className="text-[#FF5733]">ICON</span>.
                     </motion.h1>
 
                     <motion.p

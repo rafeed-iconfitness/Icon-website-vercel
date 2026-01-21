@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 
-const words = ["Willpower", "Effort", "Energy", "Motivation", "Strength", "Focus", "Discipline", "Grit"]
+const words = ["WILLPOWER", "EFFORT", "ENERGY", "MOTIVATION", "STRENGTH", "FOCUS", "DISCIPLINE", "GRIT"]
 
 export function TypewriterText() {
     const [index, setIndex] = useState(0)
@@ -16,7 +16,7 @@ export function TypewriterText() {
     }, [])
 
     return (
-        <span className="inline-block w-[240px] text-left">
+        <span className="inline-block whitespace-nowrap">
             <AnimatePresence mode="wait">
                 <motion.span
                     key={index}
@@ -24,7 +24,7 @@ export function TypewriterText() {
                     animate={{ y: 0, opacity: 1 }}
                     exit={{ y: -20, opacity: 0 }}
                     transition={{ duration: 0.5, ease: "easeInOut" }}
-                    className="italic text-[#FF5733] inline-block"
+                    className="italic text-[#FF5733] inline-block font-black"
                 >
                     {words[index]}
                 </motion.span>

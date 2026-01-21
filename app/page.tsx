@@ -29,9 +29,9 @@ export default function HomePage() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="py-16 px-4 sm:px-6 lg:px-8"
+        className="py-16 bg-black"
       >
-        <div className="container mx-auto max-w-4xl">
+        <div className="w-full mx-auto max-w-[1200px] px-8">
           <div className="mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Got questions? We&apos;ve got answers.</h2>
             <p className="text-white/70">
@@ -141,11 +141,11 @@ export default function HomePage() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-[#FF5733]/20 to-orange-900/20"
+        className="py-16 bg-gradient-to-r from-[#FF5733]/20 to-orange-900/20"
       >
-        <div className="container mx-auto">
-          <div className="max-w-4xl mx-auto bg-gradient-to-br from-[#FF5733]/20 via-orange-600/10 to-black rounded-2xl p-8 md:p-12 border border-[#FF5733]/20">
-            <div className="text-center mb-8">
+        <div className="w-full mx-auto max-w-[1200px] px-8">
+          <div className="w-full mx-auto bg-gradient-to-br from-[#FF5733]/20 via-orange-600/10 to-black rounded-2xl p-8 md:p-12 border border-[#FF5733]/20">
+            <div className="text-left mb-8">
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
                 Ready to take control of your fitness journey?
               </h2>

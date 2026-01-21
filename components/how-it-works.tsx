@@ -35,7 +35,7 @@ export function HowItWorks() {
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#FF5733]/10 blur-[120px] rounded-full" />
             </div>
 
-            <div className="container mx-auto px-4 relative z-10">
+            <div className="w-full mx-auto px-8 max-w-[1200px] relative z-10">
                 {/* Header */}
                 <div className="mb-12 md:mb-20 text-left">
                     <motion.h2

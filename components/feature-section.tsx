@@ -32,8 +32,8 @@ const features = [
 
 export function FeatureSection() {
     return (
-        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-black">
-            <div className="container mx-auto">
+        <section className="py-20 bg-black">
+            <div className="w-full max-w-[1200px] mx-auto px-8">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -53,7 +53,7 @@ export function FeatureSection() {
                 </motion.div>
 
                 {/* Mobile: Horizontal Scroll, Desktop: Grid */}
-                <div className="flex overflow-x-auto pb-8 gap-4 md:grid md:grid-cols-2 md:gap-6 max-w-6xl mx-auto snap-x snap-mandatory scrollbar-hide -mx-4 px-4 md:mx-auto md:px-0">
+                <div className="flex overflow-x-auto pb-8 gap-4 md:grid md:grid-cols-2 md:gap-6 w-full snap-x snap-mandatory scrollbar-hide -mx-4 px-4 md:mx-auto md:px-0">
                     {features.map((feature, index) => (
                         <motion.div
                             key={index}

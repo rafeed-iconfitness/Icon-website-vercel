@@ -48,40 +48,42 @@ export function HeroSection() {
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, delay: 0.2, ease: "easeOut", staggerChildren: 0.2 }}
-                className="relative z-10 container mx-auto px-4 md:px-6 lg:px-8 h-full flex flex-col justify-center max-w-7xl"
+                className="relative z-10 w-full px-8 h-full flex flex-col justify-center"
             >
-                <div className="max-w-xl lg:max-w-3xl">
-                    <motion.h1
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.3 }}
-                        className="text-5xl md:text-7xl lg:text-[100px] font-black text-white tracking-normal leading-[0.85] mb-8 font-sans"
-                    >
-                        YOU DON&apos;T NEED
-                        <br />
-                        <span className="whitespace-nowrap text-white">
-                            MORE <TypewriterText />
-                        </span>
-                        <br />
-                        YOU NEED AN <span className="text-[#FF5733]">ICON</span>.
-                    </motion.h1>
+                <div className="max-w-[1200px] mx-auto w-full">
+                    <div className="max-w-xl lg:max-w-3xl">
+                        <motion.h1
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: 0.3 }}
+                            className="text-5xl md:text-7xl lg:text-[100px] font-black text-white tracking-normal leading-[0.85] mb-8 font-sans"
+                        >
+                            YOU DON&apos;T NEED
+                            <br />
+                            <span className="whitespace-nowrap text-white">
+                                MORE <TypewriterText />
+                            </span>
+                            <br />
+                            YOU NEED AN <span className="text-[#FF5733]">ICON</span>.
+                        </motion.h1>
 
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.5 }}
-                        className="text-xl text-white/80 max-w-2xl mb-10"
-                    >
-                        Download your favorite athlete&apos;s brain. Straight to your phone.
-                    </motion.p>
+                        <motion.p
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: 0.5 }}
+                            className="text-xl text-white/80 max-w-2xl mb-10"
+                        >
+                            Download your favorite athlete&apos;s brain. Straight to your phone.
+                        </motion.p>
 
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.7 }}
-                    >
-                        <WaitlistButton variant="pill" showIcon={true} />
-                    </motion.div>
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: 0.7 }}
+                        >
+                            <WaitlistButton variant="pill" showIcon={true} />
+                        </motion.div>
+                    </div>
                 </div>
             </motion.div>
         </section>

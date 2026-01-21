@@ -18,7 +18,7 @@ export function HeroSection() {
     const filter = useMotionTemplate`blur(${blurAmount}px)`
 
     return (
-        <section ref={containerRef} className="relative h-[60vh] w-full overflow-hidden flex items-center justify-start bg-black pt-16">
+        <section ref={containerRef} className="relative min-h-[60vh] h-auto w-full overflow-hidden flex items-center justify-start bg-black pt-16 pb-8 md:pb-12">
             {/* Background Image with Parallax & Blur */}
             <motion.div
                 style={{ y, filter }}
@@ -51,7 +51,7 @@ export function HeroSection() {
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, delay: 0.2, ease: "easeOut", staggerChildren: 0.2 }}
-                className="relative z-10 w-full px-8 h-full flex flex-col justify-center"
+                className="relative z-10 w-full px-4 sm:px-8 py-8 flex flex-col justify-center"
             >
                 <div className="max-w-[1200px] mx-auto w-full">
                     <div className="max-w-xl lg:max-w-3xl">
@@ -59,7 +59,7 @@ export function HeroSection() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 0.3 }}
-                            className="text-5xl md:text-7xl lg:text-[100px] font-black text-white tracking-normal leading-[0.85] mb-8 font-sans"
+                            className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-[100px] font-black text-white tracking-normal leading-[0.9] sm:leading-[0.85] mb-4 sm:mb-6 md:mb-8 font-sans"
                         >
                             YOU DON&apos;T NEED
                             <br />
@@ -74,7 +74,7 @@ export function HeroSection() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 0.5 }}
-                            className="text-xl text-white/80 max-w-2xl mb-10"
+                            className="text-base sm:text-lg md:text-xl text-white/80 max-w-2xl mb-6 sm:mb-8 md:mb-10"
                         >
                             Download your favorite athlete&apos;s brain. Straight to your phone.
                         </motion.p>

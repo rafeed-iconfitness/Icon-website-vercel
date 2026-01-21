@@ -68,7 +68,7 @@ export function HeroSection() {
                                 MORE <TypewriterText />
                             </span>
                             <br />
-                            YOU NEED AN <span className="italic text-[#FF5733] inline-block font-normal">ICON</span>.
+                            YOU NEED AN <span className="text-[#FF5733] inline-block font-black">ICON.</span>
                         </motion.h1>
 
                         <motion.p

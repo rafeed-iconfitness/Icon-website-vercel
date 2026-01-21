@@ -27,7 +27,9 @@
   width: 100%;
   /* --- Glass Effect Styles --- */
   background-color: rgba(14, 19, 21, 0.6);
+  /* Reduced opacity for visibility */
   backdrop-filter: blur(12px);
+  /* Standard blur radius */
   -webkit-backdrop-filter: blur(12px);
   /* For Safari browser support */
   /* --- End of Glass Effect Styles --- */
@@ -326,10 +328,25 @@
   /* Show the hamburger */
   .hamburger {
     display: flex;
+    z-index: 2001;
+    /* Ensure above the mobile menu */
   }
 
-  /* Show the mobile menu when active */
-  .navLinks.active {
+  /* Hamburger Animation Classes */
+  .hamburger.open .bar:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .hamburger.open .bar:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger.open .bar:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  /* Base styles for mobile menu (hidden state) */
+  .navLinks {
     display: flex;
     position: fixed;
     left: 0;
@@ -347,6 +364,19 @@
     margin: 0;
     list-style: none;
     z-index: 1000;
+
+    /* Animation properties */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-20px);
+    transition: all 0.3s ease-in-out;
+  }
+
+  /* Active state (visible) */
+  .navLinks.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
   }
 
   /* Active Link Styles for mobile */
@@ -372,12 +402,12 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.75);
+  background-color: rgba(0, 0, 0, 0.85);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 2000;
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(12px);
 }
 
 .formPopup {

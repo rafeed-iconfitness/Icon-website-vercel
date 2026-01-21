@@ -58,10 +58,10 @@ export function WaitlistDialog({
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>{children}</DialogTrigger>
-            <DialogContent className="sm:max-w-[600px] border-none bg-transparent shadow-none p-0 overflow-hidden text-white">
+            <DialogContent className="sm:max-w-[600px] border-none bg-transparent shadow-none p-0 overflow-hidden text-white" onOpenAutoFocus={(e) => e.preventDefault()}>
                 <div className="relative w-full h-full p-8 md:p-12 rounded-3xl overflow-hidden">
-                    {/* Blur Background */}
-                    <div className="absolute inset-0 bg-black/80 backdrop-blur-xl border border-white/10" />
+                    {/* Blur Background - Solid on mobile, blur on desktop */}
+                    <div className="absolute inset-0 bg-black md:bg-black/80 md:backdrop-blur-xl border border-white/10 rounded-3xl" />
 
                     {/* Content */}
                     <div className="relative z-10 flex flex-col items-center text-center space-y-6">

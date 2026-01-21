@@ -35,7 +35,7 @@ export function LegalNav() {
   const currentPage = legalPages.find(page => page.href === pathname)
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-black/98 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-black/85 backdrop-blur-3xl">
       <div className="w-full mx-auto max-w-[1200px] px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}

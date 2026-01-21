@@ -8,7 +8,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { ContactForm } from "@/components/contact-form"
 import { WaitlistButton } from "@/components/waitlist-button"
 import { WaitlistDialog } from "@/components/waitlist-dialog"
-import styles from "./header.module.css"
+import styles from "@/styles/header.module.css"
 import { cn } from "@/lib/utils"
 
 const navLinks = [

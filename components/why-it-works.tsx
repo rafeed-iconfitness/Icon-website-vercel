@@ -2,57 +2,39 @@
 
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Plus, X, Brain, Layers, Battery, Users, User, Shield, Trophy } from "lucide-react"
+import { Plus, X, Brain, Layers, Activity, Sliders } from "lucide-react"
 import Image from "next/image"
 import { cn } from "@/lib/utils"
 
 const whyItWorksData = [
     {
-        id: "adaptive-ai",
+        id: "expert-grade",
         icon: Brain,
+        title: "Expert-Grade Intelligence",
+        content: "Other AI fitness apps scrape generic data. Every Icon is modelled on a real expert’s philosophy, experience, and decision-making.",
+    },
+    {
+        id: "adaptive-engine",
+        icon: Activity, // Represents dynamic/evolving action
         title: "Adaptive AI Engine",
-        content: "Your plan isn't static. Our engine uses real-time feedback and historic data to dynamically adjust your training, nutrition, and recovery plans instantly. If you miss a workout or sleep poorly, your Icon adapts the schedule so you stay on track without burning out.",
+        content: "Your training evolves day-by-day based on performance, recovery, and consistency. No rigid programs, no guesswork.",
     },
     {
-        id: "unified-ecosystem",
+        id: "control-data",
+        icon: Sliders, // Represents control/settings
+        title: "You Control the Data",
+        content: "Select the data points you care about and ignore the rest. Icon adapts using your priorities, not default settings.",
+    },
+    {
+        id: "unified-system",
         icon: Layers,
-        title: "Unified Ecosystem",
-        content: "Stop switching between apps. Icon consolidates activity tracking, AI food scanning, and recovery metrics into a single, streamlined platform. By integrating these three pillars, your AI coach gets a complete picture of your health to make smarter decisions.",
-    },
-    {
-        id: "smarter-recovery",
-        icon: Battery,
-        title: "Smarter Recovery",
-        content: "Training is only half the battle. We track sleep quality, mental health inputs, and injury status to generate a daily 'Readiness Score.' Your Icon uses this to throttle workout intensity up or down, ensuring you perform when you're ready and recover when you're not.",
-    },
-    {
-        id: "coaching-community",
-        icon: Users,
-        title: "Coaching-Driven Community",
-        content: "You're never training alone. Join a vibrant ecosystem of leaderboards, seasonal challenges, and collaborative spaces. Whether it's a 'seasonal hook' or a team challenge, our gamified community keeps you accountable and motivated to level up.",
-    },
-    {
-        id: "authentic-personas",
-        icon: User,
-        title: "Authentic \"Icon\" Personas",
-        content: "Train with a digital twin, not a generic bot. Trainers create AI clones that mimic their exact coaching style, personality, and philosophy. Your Icon doesn't just give advice; it speaks, motivates, and communicates exactly like the human expert behind it.",
-    },
-    {
-        id: "safety-accuracy",
-        icon: Shield,
-        title: "Safety & Accuracy First",
-        content: "Advice you can trust. Unlike generic AI that scrapes the web, Icon's 'Retrieval-Augmented Generation' powered AI model is trained exclusively on data verified by certified professionals. Every recommendation is evidence-based and moderated for safety.",
-    },
-    {
-        id: "gamified-progression",
-        icon: Trophy,
-        title: "Gamified Progression",
-        content: "Make every rep count. Earn experience points (XP) for hitting protein goals, completing workouts, or engaging with the community. Level up your profile to unlock cosmetic perks and achievements, turning your fitness journey into a rewarding game.",
+        title: "Unified Training System",
+        content: "Training, recovery, accountability, nutrition, and motivation. All living in one connected ecosystem. No more juggling apps or conflicting advice.",
     }
 ]
 
 export function WhyItWorks() {
-    const [activeId, setActiveId] = useState<string | null>("adaptive-ai")
+    const [activeId, setActiveId] = useState<string | null>("expert-grade")
 
     const toggleItem = (id: string) => {
         setActiveId(activeId === id ? null : id)
@@ -196,14 +178,9 @@ export function WhyItWorks() {
                                     fill
                                     className="object-cover"
                                 />
-                                {/* Floating Card Overlay */}
-                                <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ duration: 0.5, delay: 0.6 }}
-                                    className="absolute bottom-8 left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl w-[80%] max-w-[280px]"
-                                >
+
+                                {/* Floating Card Overlay - Now STATIC (Removed motion wrapper) */}
+                                <div className="absolute bottom-8 left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl w-[80%] max-w-[280px]">
                                     <div className="text-center text-sm text-gray-500 mb-3">Running Stats</div>
                                     <div className="grid grid-cols-2 gap-4 text-center">
                                         <div>
@@ -226,7 +203,7 @@ export function WhyItWorks() {
                                     <button className="mt-4 w-full bg-[#c8e94d] hover:bg-[#b8d93d] text-gray-900 font-medium py-2.5 rounded-full transition-colors text-sm">
                                         Save
                                     </button>
-                                </motion.div>
+                                </div>
                             </div>
                         </motion.div>
                     </div>

@@ -18,7 +18,8 @@ export function HeroSection() {
     const filter = useMotionTemplate`blur(${blurAmount}px)`
 
     return (
-        <section ref={containerRef} className="relative min-h-[60vh] h-auto w-full overflow-hidden flex items-center justify-start bg-black pt-16 pb-8 md:pb-12">
+        /* Changed pt-16 to pt-32 (mobile) and added md:pt-48 (desktop) for more spacing */
+        <section ref={containerRef} className="relative min-h-[60vh] h-auto w-full overflow-hidden flex items-center justify-start bg-black pt-32 md:pt-48 pb-8 md:pb-12">
             {/* Background Image with Parallax & Blur */}
             <motion.div
                 style={{ y, filter }}
@@ -67,7 +68,7 @@ export function HeroSection() {
                                 MORE <TypewriterText />
                             </span>
                             <br />
-                            YOU NEED AN <span className="text-[#FF5733]">ICON</span>.
+                            YOU NEED AN <span className="italic text-[#FF5733] inline-block font-normal">ICON</span>.
                         </motion.h1>
 
                         <motion.p

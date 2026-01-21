@@ -24,7 +24,8 @@ export function TypewriterText() {
                     animate={{ y: 0, opacity: 1 }}
                     exit={{ y: -20, opacity: 0 }}
                     transition={{ duration: 0.5, ease: "easeInOut" }}
-                    className="italic text-[#FF5733] inline-block font-black"
+                    /* Changed font-black to font-normal */
+                    className="italic text-[#FF5733] inline-block font-normal"
                 >
                     {words[index]}
                 </motion.span>

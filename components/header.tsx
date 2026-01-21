@@ -7,7 +7,6 @@ import { useState, useRef, useEffect } from "react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { ContactForm } from "@/components/contact-form"
 import { WaitlistButton } from "@/components/waitlist-button"
-import { WaitlistDialog } from "@/components/waitlist-dialog"
 import styles from "@/styles/header.module.css"
 import { cn } from "@/lib/utils"
 
@@ -16,7 +15,7 @@ const navLinks = [
   { name: 'Trainers', href: '/trainers' },
   { name: 'About Us', href: '/about-us' },
   { name: 'Pricing', href: '/pricing' },
-  { name: 'Contact Us', href: '#' }, // Special handling for Contact Us
+  { name: 'Contact Us', href: '#' },
 ]
 
 export function Header() {
@@ -26,12 +25,10 @@ export function Header() {
   const navItemsRef = useRef<{ [key: string]: HTMLLIElement | null }>({})
 
   const [contactDialogOpen, setContactDialogOpen] = useState(false)
-  const [waitlistDialogOpen, setWaitlistDialogOpen] = useState(false) // Using WaitlistDialog for Sign Up flows
 
   const closeMenu = () => setMenuOpen(false)
 
   useEffect(() => {
-    // Logic to position the underline
     if (navItemsRef.current[pathname]) {
       const element = navItemsRef.current[pathname]
       if (element) {
@@ -42,21 +39,12 @@ export function Header() {
         })
       }
     } else {
-      // Hide underline if not matching any key
       setUnderlineStyle({ width: 0, left: 0 })
     }
   }, [pathname])
 
-  // Determine button text based on the current path
   const isTrainersPage = pathname === '/trainers'
   const buttonText = isTrainersPage ? 'Apply Now' : 'Join Waitlist'
-
-  const handleButtonClick = (e: React.MouseEvent) => {
-    e.preventDefault()
-    // Open Waitlist Dialog for both cases (Sign Up / Apply Now) per current site capabilities
-    setWaitlistDialogOpen(true)
-    closeMenu()
-  }
 
   const handleContactClick = (e: React.MouseEvent) => {
     e.preventDefault()
@@ -71,10 +59,15 @@ export function Header() {
 
   return (
     <>
-      <nav className={styles.navbar}>
+      {/* Changes:
+        1. Added conditional `styles.navOpen` to navbar
+        2. Added conditional `styles.hiddenWhenOpen` to Logo section
+        3. Added conditional `styles.hiddenWhenOpen` to Mobile Button
+      */}
+      <nav className={cn(styles.navbar, menuOpen ? styles.navOpen : '')}>
         <div className={styles.container}>
-          {/* Part 1: Logo */}
-          <div className={cn(styles.navSection, styles.navLeft)}>
+          {/* Part 1: Logo - Fades out when menu open */}
+          <div className={cn(styles.navSection, styles.navLeft, menuOpen ? styles.hiddenWhenOpen : '')}>
             <Link href="/" className={styles.logo}>
               <Image
                 src="/Group 7.svg"
@@ -122,12 +115,15 @@ export function Header() {
 
           {/* Wrapper for Mobile Controls */}
           <div className={styles.mobileControls}>
+            {/* Mobile Button - Fades out when menu open */}
             <WaitlistButton
               {...commonButtonProps}
-              className={cn(commonButtonProps.className, "!h-9 !px-4 !text-sm")}
+              className={cn(commonButtonProps.className, "!h-9 !px-4 !text-sm", menuOpen ? styles.hiddenWhenOpen : '')}
             >
               {buttonText}
             </WaitlistButton>
+
+            {/* Hamburger - Always visible */}
             <div
               className={cn(styles.hamburger, menuOpen ? styles.open : '')}
               onClick={() => setMenuOpen(!menuOpen)}
@@ -137,29 +133,28 @@ export function Header() {
               <div className={styles.bar}></div>
             </div>
           </div>
-
-          {/* Mobile Menu Overlay */}
-          <ul className={cn(styles.navLinks, menuOpen ? styles.active : '')}>
-            {/* Close button inside the menu if preferred, or rely on hamburger toggle. Source uses overlay logic differently but here we map structure */}
-            {navLinks.map(link => {
-              const isContact = link.name === 'Contact Us';
-              const isActive = pathname === link.href;
-
-              return (
-                <li key={link.name}>
-                  <Link
-                    href={link.href}
-                    onClick={isContact ? handleContactClick : closeMenu}
-                    className={isActive ? styles.activeMobileLink : ''}
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              )
-            })}
-          </ul>
         </div>
       </nav>
+
+      {/* Mobile Menu Overlay */}
+      <ul className={cn(styles.navLinks, menuOpen ? styles.active : '')}>
+        {navLinks.map(link => {
+          const isContact = link.name === 'Contact Us';
+          const isActive = pathname === link.href;
+
+          return (
+            <li key={link.name}>
+              <Link
+                href={link.href}
+                onClick={isContact ? handleContactClick : closeMenu}
+                className={isActive ? styles.activeMobileLink : ''}
+              >
+                {link.name}
+              </Link>
+            </li>
+          )
+        })}
+      </ul>
 
       {/* Dialogs */}
       <Dialog open={contactDialogOpen} onOpenChange={setContactDialogOpen}>
@@ -173,23 +168,6 @@ export function Header() {
           <ContactForm />
         </DialogContent>
       </Dialog>
-
-      {/* We reuse WaitlistButton's dialog simply by rendering it hidden or controlling state if WaitlistButton exposed it. 
-          Actually WaitlistButton uses WaitlistDialog internally. 
-          To trigger it from our custom button, we might need to expose the dialog or wrap our custom button in WaitlistDialog logic.
-          Simpler approach: Import WaitlistDialog content logic or just make a hidden WaitlistButton trigger? 
-          Better: The destination has `WaitlistDialog`. Import `WaitlistDialog` and control it.
-       */}
-      {/* Let's verify WaitlistDialog implementation. I'll just rely on the fact that I can't easily import the Dialog Trigger separately without refactoring.
-           BUT layout needs to work.
-           I'll assume I can render WaitlistButton hidden and click it? No, that's hacky.
-           I'll check `waitlist-dialog.tsx` content quickly. It likely exports `WaitlistDialog` component that wraps children.
-           So I can wrap the custom button in `WaitlistDialog`? 
-           NO, because `WaitlistDialog` likely has the Trigger built-in or specific logic.
-           Let's look at `waitlist-button.tsx` again. usage: <WaitlistDialog><Button>...</Button></WaitlistDialog>
-           So I can import WaitlistDialog and wrap my custom button!
-       */}
-
     </>
   )
 }

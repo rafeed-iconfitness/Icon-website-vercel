@@ -49,38 +49,43 @@ export function Footer() {
   useGSAP(() => {
     if (!footerRef.current) return
 
-    // Top row animation - using fromTo to be explicit about states
-    gsap.fromTo(topRowRef.current,
-      { y: 20, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 0.5,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: footerRef.current,
-          start: "top bottom",
-          toggleActions: "play none none none",
-        },
-      }
-    )
+    // Ensure elements are hidden initially via JS to avoid flash of unstyled content
+    // but only if JS runs. CSS remains visible by default for SEO/No-JS.
+    gsap.set([topRowRef.current, bottomRowRef.current], {
+      y: 20,
+      opacity: 0
+    })
+
+    // Top row animation
+    gsap.to(topRowRef.current, {
+      y: 0,
+      opacity: 1,
+      duration: 0.5,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: footerRef.current,
+        start: "top 95%", // Trigger slightly earlier to ensure visibility
+        toggleActions: "play none none none",
+      },
+    })
 
     // Bottom row animation
-    gsap.fromTo(bottomRowRef.current,
-      { y: 20, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 0.5,
-        delay: 0.1,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: footerRef.current,
-          start: "top bottom",
-          toggleActions: "play none none none",
-        },
-      }
-    )
+    gsap.to(bottomRowRef.current, {
+      y: 0,
+      opacity: 1,
+      duration: 0.5,
+      delay: 0.1,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: footerRef.current,
+        start: "top 95%",
+        toggleActions: "play none none none",
+      },
+    })
+
+    // Force a refresh after a short delay to account for any layout shifts
+    setTimeout(() => ScrollTrigger.refresh(), 500)
+
   }, { scope: footerRef })
 
   return (

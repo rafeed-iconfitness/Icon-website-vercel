@@ -20,6 +20,19 @@
   }
 }
 
+/* Define shared timing for synchronization */
+@property --nav-timing {
+  syntax: '<time>';
+  inherits: true;
+  initial-value: 0.4s;
+}
+
+@property --nav-ease {
+  syntax: '<string>';
+  inherits: true;
+  initial-value: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 .navbar {
   position: sticky;
   top: 0;
@@ -45,14 +58,16 @@
       black calc(100% - 2rem),
       transparent 100%);
 
-  /* --- CHANGED: Switched to ease-in-out to match hamburger animation --- */
-  transition: background-color 0.3s ease-in-out, backdrop-filter 0.3s ease-in-out;
+  /* Synchronized transition */
+  transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    backdrop-filter 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    -webkit-backdrop-filter 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .navbar.navOpen {
   background-color: transparent;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
   -webkit-mask-image: none;
   mask-image: none;
 }
@@ -62,11 +77,10 @@
   display: none;
 }
 
-/* --- CHANGED: Switched to ease-in-out to match hamburger animation --- */
 .hiddenWhenOpen {
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.3s ease-in-out;
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .navbar::before {
@@ -111,11 +125,10 @@
   align-items: center;
 }
 
-/* --- CHANGED: Switched to ease-in-out --- */
 .navLeft {
   flex: 0 0 200px;
   justify-content: flex-start;
-  transition: opacity 0.3s ease-in-out;
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .navCenter {
@@ -200,7 +213,7 @@
   width: 25px;
   height: 3px;
   background-color: #ffffff;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @property --gradient-angle {
@@ -245,8 +258,7 @@
   height: 48px;
   padding: 0 24px;
   border: none;
-  /* --- CHANGED: Switched opacity transition to ease-in-out --- */
-  transition: background-color 0.2s, color 0.2s, opacity 0.3s ease-in-out;
+  transition: background-color 0.2s, color 0.2s, opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -360,7 +372,7 @@
     opacity: 0;
     visibility: hidden;
     transform: translateY(-20px);
-    transition: all 0.3s ease-in-out;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .navLinks.active {

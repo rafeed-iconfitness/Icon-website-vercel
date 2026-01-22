@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { useRef, useState } from "react"
+import { useRef, useState, useEffect } from "react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useGSAP } from "@gsap/react"
@@ -9,6 +9,7 @@ import {
     Carousel,
     CarouselContent,
     CarouselItem,
+    type CarouselApi,
 } from "@/components/ui/carousel"
 import { createHoverAnimation } from "@/hooks/use-gsap"
 import { HowItWorksIllustration } from "@/components/how-it-works-illustration"
@@ -36,12 +37,20 @@ const steps = [
 interface StepCardProps {
     step: { title: string; description: string }
     index: number
+    isActive: boolean
+    isMobile: boolean
     onCardRef: (el: HTMLDivElement | null, index: number) => void
 }
 
-function StepCard({ step, index, onCardRef }: StepCardProps) {
+function StepCard({ step, index, isActive, isMobile, onCardRef }: StepCardProps) {
     const [isHovered, setIsHovered] = useState(false)
     const cardRef = useRef<HTMLDivElement>(null)
+
+    // Only use hover handlers on desktop
+    const hoverHandlers = isMobile ? {} : {
+        onMouseEnter: () => setIsHovered(true),
+        onMouseLeave: () => setIsHovered(false),
+    }
 
     return (
         <div
@@ -50,11 +59,11 @@ function StepCard({ step, index, onCardRef }: StepCardProps) {
                 onCardRef(el, index)
             }}
             className="group relative bg-white/5 border border-white/10 rounded-3xl overflow-hidden flex flex-col h-full"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
+            {...hoverHandlers}
         >
             <div className="p-8 flex flex-col h-full relative z-10">
-                <h3 className="text-2xl font-bold mb-4 text-white transition-colors duration-100 group-hover:text-[#FF5733]">
+                <h3 className={`text-2xl font-bold mb-4 transition-colors duration-100 ${(isMobile && isActive) ? 'text-[#FF5733]' : 'text-white group-hover:text-[#FF5733]'
+                    }`}>
                     {step.title}
                 </h3>
 
@@ -62,9 +71,10 @@ function StepCard({ step, index, onCardRef }: StepCardProps) {
                     {step.description}
                 </p>
 
-                {/* Image Area */}
-                <div className="mt-auto relative w-full h-56 rounded-xl overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-100 bg-black">
-                    <HowItWorksIllustration isHovered={isHovered} />
+                {/* Image Area - remove grayscale when active on mobile or hovered on desktop */}
+                <div className={`mt-auto relative w-full h-56 rounded-xl overflow-hidden transition-all duration-100 bg-black ${(isMobile && isActive) ? '' : 'grayscale group-hover:grayscale-0'
+                    }`}>
+                    <HowItWorksIllustration isHovered={isHovered} isActive={isActive} />
                 </div>
             </div>
         </div>
@@ -75,6 +85,33 @@ export function HowItWorks() {
     const sectionRef = useRef<HTMLElement>(null)
     const headerRef = useRef<HTMLDivElement>(null)
     const cardsRef = useRef<(HTMLDivElement | null)[]>([])
+    const [api, setApi] = useState<CarouselApi>()
+    const [activeIndex, setActiveIndex] = useState(0)
+    const [isMobile, setIsMobile] = useState(false)
+
+    // Detect mobile viewport
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth < 768)
+        checkMobile()
+        window.addEventListener("resize", checkMobile)
+        return () => window.removeEventListener("resize", checkMobile)
+    }, [])
+
+    // Track active carousel slide
+    useEffect(() => {
+        if (!api) return
+
+        const onSelect = () => {
+            setActiveIndex(api.selectedScrollSnap())
+        }
+
+        api.on("select", onSelect)
+        onSelect() // Set initial state
+
+        return () => {
+            api.off("select", onSelect)
+        }
+    }, [api])
 
     const handleCardRef = (el: HTMLDivElement | null, index: number) => {
         cardsRef.current[index] = el
@@ -150,6 +187,7 @@ export function HowItWorks() {
                         align: "start",
                         loop: false,
                     }}
+                    setApi={setApi}
                     className="w-full max-w-7xl mx-auto"
                 >
                     <CarouselContent className="-ml-4 py-4">
@@ -158,6 +196,8 @@ export function HowItWorks() {
                                 <StepCard
                                     step={step}
                                     index={index}
+                                    isActive={isMobile ? activeIndex === index : false}
+                                    isMobile={isMobile}
                                     onCardRef={handleCardRef}
                                 />
                             </CarouselItem>

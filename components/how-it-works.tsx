@@ -1,17 +1,17 @@
 "use client"
 
 import * as React from "react"
-import { useRef, useEffect } from "react"
+import { useRef, useState } from "react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useGSAP } from "@gsap/react"
-import Image from "next/image"
 import {
     Carousel,
     CarouselContent,
     CarouselItem,
 } from "@/components/ui/carousel"
 import { createHoverAnimation } from "@/hooks/use-gsap"
+import { HowItWorksIllustration } from "@/components/how-it-works-illustration"
 
 // Register GSAP plugins
 if (typeof window !== "undefined") {
@@ -22,24 +22,63 @@ const steps = [
     {
         title: "Built Around You",
         description: "The Icon Training app starts by understanding your body, goals, and constraints. Then, it shapes everything around your reality.",
-        image: "/placeholder-user.jpg",
     },
     {
         title: "Expert Intelligence, Hyper Delivered",
         description: "Your Icon isn`t just web-scraped advice. It has the brain of a real athlete, and gives you full access to everything you need.",
-        image: "/placeholder-user.jpg",
     },
     {
         title: "Designed for Real Life",
         description: "Choose what matters to you. Icon adjusts when plans change. So progress continues, even when life gets messy.",
-        image: "/placeholder-user.jpg",
     },
 ]
+
+interface StepCardProps {
+    step: { title: string; description: string }
+    index: number
+    onCardRef: (el: HTMLDivElement | null, index: number) => void
+}
+
+function StepCard({ step, index, onCardRef }: StepCardProps) {
+    const [isHovered, setIsHovered] = useState(false)
+    const cardRef = useRef<HTMLDivElement>(null)
+
+    return (
+        <div
+            ref={(el) => {
+                cardRef.current = el
+                onCardRef(el, index)
+            }}
+            className="group relative bg-white/5 border border-white/10 rounded-3xl overflow-hidden flex flex-col h-full"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+        >
+            <div className="p-8 flex flex-col h-full relative z-10">
+                <h3 className="text-2xl font-bold mb-4 text-white transition-colors duration-100 group-hover:text-[#FF5733]">
+                    {step.title}
+                </h3>
+
+                <p className="text-white/60 leading-relaxed mb-8">
+                    {step.description}
+                </p>
+
+                {/* Image Area */}
+                <div className="mt-auto relative w-full h-56 rounded-xl overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-100 bg-black">
+                    <HowItWorksIllustration isHovered={isHovered} />
+                </div>
+            </div>
+        </div>
+    )
+}
 
 export function HowItWorks() {
     const sectionRef = useRef<HTMLElement>(null)
     const headerRef = useRef<HTMLDivElement>(null)
     const cardsRef = useRef<(HTMLDivElement | null)[]>([])
+
+    const handleCardRef = (el: HTMLDivElement | null, index: number) => {
+        cardsRef.current[index] = el
+    }
 
     useGSAP(() => {
         if (!sectionRef.current) return
@@ -79,13 +118,11 @@ export function HowItWorks() {
             })
 
             // Hover animation
-            const cleanup = createHoverAnimation(
+            createHoverAnimation(
                 card,
                 { y: -10, borderColor: "rgba(255, 87, 51, 0.4)", duration: 0.3, ease: "power2.out" },
                 { y: 0, borderColor: "rgba(255, 255, 255, 0.1)", duration: 0.3, ease: "power2.out" }
             )
-
-            return cleanup
         })
     }, { scope: sectionRef })
 
@@ -118,31 +155,11 @@ export function HowItWorks() {
                     <CarouselContent className="-ml-4 py-4">
                         {steps.map((step, index) => (
                             <CarouselItem key={index} className="pl-4 md:basis-1/3 basis-[85%]">
-                                <div
-                                    ref={(el) => { cardsRef.current[index] = el }}
-                                    className="group relative bg-white/5 border border-white/10 rounded-3xl overflow-hidden flex flex-col h-full"
-                                >
-                                    <div className="p-8 flex flex-col h-full relative z-10">
-                                        <h3 className="text-2xl font-bold mb-4 text-white transition-colors duration-100 group-hover:text-[#FF5733]">
-                                            {step.title}
-                                        </h3>
-
-                                        <p className="text-white/60 leading-relaxed mb-8">
-                                            {step.description}
-                                        </p>
-
-                                        {/* Image Area */}
-                                        <div className="mt-auto relative w-full h-56 rounded-xl overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-100">
-                                            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent z-10" />
-                                            <Image
-                                                src={step.image}
-                                                alt={step.title}
-                                                fill
-                                                className="object-cover transform group-hover:scale-110 transition-transform duration-100 ease-out"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
+                                <StepCard
+                                    step={step}
+                                    index={index}
+                                    onCardRef={handleCardRef}
+                                />
                             </CarouselItem>
                         ))}
                     </CarouselContent>

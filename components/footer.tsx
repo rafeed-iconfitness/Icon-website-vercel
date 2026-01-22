@@ -1,14 +1,21 @@
 "use client"
 
+import { useRef, useState, useEffect } from "react"
+import gsap from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { useGSAP } from "@gsap/react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import Image from "next/image"
 import { Instagram, ChevronDown } from "lucide-react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { cn } from "@/lib/utils"
-import { useState, useRef, useEffect } from "react"
 import { ContactForm } from "@/components/contact-form"
-import { motion } from "framer-motion"
+
+// Register GSAP plugins
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger)
+}
 
 const legalPages = [
   { href: "/privacy", label: "Privacy Policy" },
@@ -24,6 +31,9 @@ export function Footer() {
   const [contactDialogOpen, setContactDialogOpen] = useState(false)
   const [legalDropdownOpen, setLegalDropdownOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
+  const footerRef = useRef<HTMLElement>(null)
+  const topRowRef = useRef<HTMLDivElement>(null)
+  const bottomRowRef = useRef<HTMLDivElement>(null)
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -36,76 +46,102 @@ export function Footer() {
     return () => document.removeEventListener("mousedown", handleClickOutside)
   }, [])
 
+  useGSAP(() => {
+    if (!footerRef.current) return
+
+    // Top row animation - using fromTo to be explicit about states
+    gsap.fromTo(topRowRef.current,
+      { y: 20, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.5,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: footerRef.current,
+          start: "top bottom",
+          toggleActions: "play none none none",
+        },
+      }
+    )
+
+    // Bottom row animation
+    gsap.fromTo(bottomRowRef.current,
+      { y: 20, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.5,
+        delay: 0.1,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: footerRef.current,
+          start: "top bottom",
+          toggleActions: "play none none none",
+        },
+      }
+    )
+  }, { scope: footerRef })
+
   return (
     <>
-      <footer className="bg-black text-white py-12 border-t border-white/10">
+      <footer ref={footerRef} className="bg-black text-white py-6 border-t border-white/10">
         <div className="w-full mx-auto max-w-[1200px] px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="flex flex-col md:flex-row justify-between items-center gap-6"
-          >
-            <div className="flex items-center gap-1">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-8">
+
+            {/* Left: Logo & Copyright */}
+            <div ref={topRowRef} className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
               <Link href="/" className="flex items-center">
                 <Image
                   src="/Group 7.svg"
                   alt="ICON"
-                  width={120}
-                  height={40}
-                  className="w-auto h-8 md:h-10"
+                  width={100}
+                  height={32}
+                  className="w-auto h-6 md:h-8"
                   priority
                 />
               </Link>
+              <div className="text-xs text-white/50">© 2025 ICON. All rights reserved.</div>
             </div>
 
-            <div className="flex items-center gap-6">
+            {/* Right: Legal & Socials */}
+            <div ref={bottomRowRef} className="flex items-center gap-6">
+              {/* Legal Dropdown */}
+              <div className="relative" ref={dropdownRef}>
+                <button
+                  onClick={() => setLegalDropdownOpen(!legalDropdownOpen)}
+                  className="flex items-center gap-2 text-xs text-white/50 hover:text-white transition-colors px-2 py-1 rounded-lg hover:bg-white/5"
+                >
+                  <span>Legal</span>
+                  <ChevronDown className={cn(
+                    "w-3 h-3 transition-transform duration-200",
+                    legalDropdownOpen && "rotate-180"
+                  )} />
+                </button>
+
+                {/* Dropdown Menu */}
+                {legalDropdownOpen && (
+                  <div className="absolute right-0 bottom-full mb-2 w-56 rounded-xl bg-zinc-900 border border-white/10 shadow-xl py-2 z-50">
+                    {legalPages.map((page) => (
+                      <Link
+                        key={page.href}
+                        href={page.href}
+                        onClick={() => setLegalDropdownOpen(false)}
+                        className="block px-4 py-2 text-xs text-white/70 hover:text-white hover:bg-white/5 transition-colors"
+                      >
+                        {page.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+
               <Link href="https://instagram.com" className="text-white/60 hover:text-[#FF5733] transition-colors">
-                <Instagram className="w-6 h-6" />
+                <Instagram className="w-5 h-5" />
               </Link>
             </div>
-          </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="mt-8 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-white/60"
-          >
-            <div>© 2025 ICON. All rights reserved.</div>
-
-            {/* Legal Dropdown */}
-            <div className="relative" ref={dropdownRef}>
-              <button
-                onClick={() => setLegalDropdownOpen(!legalDropdownOpen)}
-                className="flex items-center gap-2 text-white/60 hover:text-white transition-colors px-3 py-1.5 rounded-lg hover:bg-white/5"
-              >
-                <span>Legal</span>
-                <ChevronDown className={cn(
-                  "w-4 h-4 transition-transform duration-200",
-                  legalDropdownOpen && "rotate-180"
-                )} />
-              </button>
-
-              {/* Dropdown Menu */}
-              {legalDropdownOpen && (
-                <div className="absolute right-0 bottom-full mb-2 w-56 rounded-xl bg-zinc-900 border border-white/10 shadow-xl py-2 z-50">
-                  {legalPages.map((page) => (
-                    <Link
-                      key={page.href}
-                      href={page.href}
-                      onClick={() => setLegalDropdownOpen(false)}
-                      className="block px-4 py-2.5 text-sm text-white/70 hover:text-white hover:bg-white/5 transition-colors"
-                    >
-                      {page.label}
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
-          </motion.div>
+          </div>
         </div>
       </footer>
 
@@ -123,5 +159,3 @@ export function Footer() {
     </>
   )
 }
-
-

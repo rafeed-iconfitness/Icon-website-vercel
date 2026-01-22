@@ -1,8 +1,15 @@
 "use client"
 
 import { useState, useRef, useEffect } from "react"
+import gsap from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { useGSAP } from "@gsap/react"
 import { FeatureCard } from "./feature-card"
-import { motion } from "framer-motion"
+
+// Register GSAP plugins
+if (typeof window !== "undefined") {
+    gsap.registerPlugin(ScrollTrigger)
+}
 
 const features = [
     {
@@ -32,7 +39,10 @@ const features = [
 ]
 
 export function FeatureSection() {
+    const sectionRef = useRef<HTMLElement>(null)
+    const headerRef = useRef<HTMLDivElement>(null)
     const scrollRef = useRef<HTMLDivElement>(null)
+    const cardsRef = useRef<(HTMLDivElement | null)[]>([])
     const [canScrollLeft, setCanScrollLeft] = useState(false)
     const [canScrollRight, setCanScrollRight] = useState(true)
 
@@ -40,7 +50,6 @@ export function FeatureSection() {
         if (scrollRef.current) {
             const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current
             setCanScrollLeft(scrollLeft > 0)
-            // Use a small buffer to handle pixel rounding
             setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10)
         }
     }
@@ -54,16 +63,45 @@ export function FeatureSection() {
         return () => el?.removeEventListener("scroll", checkScroll)
     }, [])
 
+    useGSAP(() => {
+        if (!sectionRef.current) return
+
+        // Header animation
+        gsap.from(headerRef.current, {
+            y: 20,
+            opacity: 0,
+            duration: 0.6,
+            ease: "power2.out",
+            scrollTrigger: {
+                trigger: headerRef.current,
+                start: "top 85%",
+                toggleActions: "play none none none",
+            },
+        })
+
+        // Cards stagger animation
+        cardsRef.current.forEach((card, index) => {
+            if (!card) return
+
+            gsap.from(card, {
+                y: 20,
+                opacity: 0,
+                duration: 0.5,
+                delay: index * 0.1,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: card,
+                    start: "top 85%",
+                    toggleActions: "play none none none",
+                },
+            })
+        })
+    }, { scope: sectionRef })
+
     return (
-        <section className="py-20 bg-black">
+        <section ref={sectionRef} className="py-20 bg-black">
             <div className="w-full max-w-[1200px] mx-auto px-8">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                    className="mb-16 text-left"
-                >
+                <div ref={headerRef} className="mb-16 text-left">
                     <span className="text-white/50 text-sm font-medium uppercase tracking-wider mb-4 block">
                         Core Features
                     </span>
@@ -73,7 +111,7 @@ export function FeatureSection() {
                     <p className="text-white/70 max-w-xl text-lg">
                         Don&apos;t just work harder. Have the right coach by your side. <br className="hidden md:block" /> 24/7/365.
                     </p>
-                </motion.div>
+                </div>
 
                 {/* Container for Carousel with Relative positioning for the Glows */}
                 <div className="relative">
@@ -94,17 +132,13 @@ export function FeatureSection() {
                         className="flex overflow-x-auto pb-8 gap-4 md:grid md:grid-cols-2 md:gap-6 w-[calc(100%+2rem)] -mx-4 px-4 md:w-full md:mx-auto md:px-0 snap-x snap-mandatory scrollbar-hide"
                     >
                         {features.map((feature, index) => (
-                            <motion.div
+                            <div
                                 key={index}
-                                /* Changed to min-w-[80vw] to show a peek of the next card */
+                                ref={(el) => { cardsRef.current[index] = el }}
                                 className="min-w-[80vw] md:min-w-0 snap-center"
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.5, delay: index * 0.1 }}
                             >
                                 <FeatureCard {...feature} />
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
                 </div>

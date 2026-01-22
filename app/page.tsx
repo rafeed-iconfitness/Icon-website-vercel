@@ -1,9 +1,11 @@
 "use client"
 
+import { useRef } from "react"
+import gsap from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { useGSAP } from "@gsap/react"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
-import { Button } from "@/components/ui/button"
-import { Plus, Star } from "lucide-react"
 import Image from "next/image"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { HeroSection } from "@/components/hero-section"
@@ -11,9 +13,44 @@ import { FeatureSection } from "@/components/feature-section"
 import { WaitlistButton } from "@/components/waitlist-button"
 import { HowItWorks } from "@/components/how-it-works"
 import { WhyItWorks } from "@/components/why-it-works"
-import { motion } from "framer-motion"
+
+// Register GSAP plugins
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger)
+}
 
 export default function HomePage() {
+  const faqRef = useRef<HTMLElement>(null)
+  const ctaRef = useRef<HTMLElement>(null)
+
+  useGSAP(() => {
+    // FAQ Section animation
+    gsap.from(faqRef.current, {
+      y: 20,
+      opacity: 0,
+      duration: 0.6,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: faqRef.current,
+        start: "top 85%",
+        toggleActions: "play none none none",
+      },
+    })
+
+    // CTA Section animation
+    gsap.from(ctaRef.current, {
+      y: 20,
+      opacity: 0,
+      duration: 0.6,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: ctaRef.current,
+        start: "top 85%",
+        toggleActions: "play none none none",
+      },
+    })
+  })
+
   return (
     <div className="min-h-screen bg-black">
       <Header />
@@ -27,13 +64,7 @@ export default function HomePage() {
       <WhyItWorks />
 
       {/* FAQ Section */}
-      <motion.section
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="py-16 bg-black"
-      >
+      <section ref={faqRef} className="py-16 bg-black">
         <div className="w-full mx-auto max-w-[1200px] px-8">
           <div className="mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Got questions? We&apos;ve got answers.</h2>
@@ -134,18 +165,12 @@ export default function HomePage() {
             </AccordionItem>
           </Accordion>
         </div>
-      </motion.section>
+      </section>
 
 
 
       {/* CTA Section */}
-      <motion.section
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="py-16 bg-black"
-      >
+      <section ref={ctaRef} className="py-16 bg-black">
         <div className="w-full mx-auto max-w-[1200px] px-8">
           <div className="relative w-full mx-auto bg-zinc-900 rounded-[32px] overflow-hidden border border-white/10">
             {/* Background Image */}
@@ -189,7 +214,7 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-      </motion.section>
+      </section>
 
 
 

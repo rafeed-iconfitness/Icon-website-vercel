@@ -169,13 +169,13 @@ export function TrainerHeroSection() {
             </div>
 
             {/* Constrained Container for Assets matching Header Width */}
-            <div className="max-w-[1200px] mx-auto w-full relative h-[700px] md:h-[850px] mt-1 md:mt-2">
+            <div className="max-w-[1200px] mx-auto w-full relative h-[600px] md:h-[700px] mt-1 md:mt-2">
 
                 {/* Floating Stats - Positioned within constrained container */}
                 {/* Monthly Earn - Top Right */}
                 <div
                     ref={monthlyEarnRef}
-                    className="absolute top-[22%] right-[-8%] z-20 hidden md:block brightness-110"
+                    className="absolute top-[20%] right-[-8%] z-20 hidden md:block brightness-110"
                 >
                     <Image
                         src="/TrainerHero/Monthly Earn.svg"
@@ -188,7 +188,7 @@ export function TrainerHeroSection() {
                 {/* Clients Joined */}
                 <div
                     ref={clientsJoinedRef}
-                    className="absolute top-[31%] right-[27%] z-5 hidden md:block brightness-110"
+                    className="absolute top-[25%] right-[23.5%] z-5 hidden md:block brightness-110"
                 >
                     <Image
                         src="/TrainerHero/Clients Joined.svg"
@@ -201,7 +201,7 @@ export function TrainerHeroSection() {
                 {/* Client Success */}
                 <div
                     ref={clientSuccessRef}
-                    className="absolute top-[60%] right-[2%] z-20 hidden md:block brightness-110"
+                    className="absolute top-[55%] right-[5%] z-20 hidden md:block brightness-110"
                 >
                     <Image
                         src="/TrainerHero/Client Success.svg"
@@ -214,7 +214,7 @@ export function TrainerHeroSection() {
                 {/* Retention */}
                 <div
                     ref={retentionRef}
-                    className="absolute bottom-[25%] right-[38%] z-5 hidden md:block brightness-110"
+                    className="absolute bottom-[30%] right-[32.5%] z-5 hidden md:block brightness-110"
                 >
                     <Image
                         src="/TrainerHero/Retention.svg"
@@ -224,19 +224,16 @@ export function TrainerHeroSection() {
                     />
                 </div>
 
-                {/* Athlete Image - Centered/Right closer to text */}
+                {/* Athlete Image */}
                 <div
                     ref={athleteRef}
-                    className="absolute -right-36 bottom-0 w-[65%] h-[100%] z-10 hidden md:block"
+                    className="absolute bottom-40 -right-[20%] w-[90%] h-[50%] md:bottom-[10%] md:right-[-10%] md:w-[58.5%] md:h-[90%] z-10 block opacity-60 md:opacity-100"
                 >
                     <Image
                         src="/TrainerHero/Athlete.svg"
                         alt="Athlete"
                         fill
-                        className="object-contain object-bottom"
                     />
-                    {/* Athlete Fade to Background */}
-                    <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black via-black/40 to-transparent" />
                 </div>
 
                 {/* Text Content - Left Aligned in Container */}
@@ -273,6 +270,8 @@ export function TrainerHeroSection() {
                     </div>
                 </div>
             </div>
+            {/* Bottom Fade to Black matching homepage hero */}
+            <div className="absolute bottom-0 left-0 right-0 h-[250px] bg-gradient-to-t from-black via-black/99 to-transparent z-[25] pointer-events-none" />
         </section>
     )
 }

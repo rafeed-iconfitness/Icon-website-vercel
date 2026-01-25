@@ -40,6 +40,13 @@ const whyItWorksData = [
     }
 ]
 
+const accordionImages: Record<string, string> = {
+    "expert-grade": "/WhyItWorks/Expert Grade Intelligence.png",
+    "adaptive-engine": "/WhyItWorks/Adaptive AI Engine.png",
+    "control-data": "/WhyItWorks/You Control The Data.png",
+    "unified-system": "/WhyItWorks/Unified Training System.png",
+}
+
 export function WhyItWorks() {
     const [activeId, setActiveId] = useState<string | null>("expert-grade")
     const sectionRef = useRef<HTMLElement>(null)
@@ -52,8 +59,11 @@ export function WhyItWorks() {
     const contentRefs = useRef<{ [key: string]: HTMLDivElement | null }>({})
 
     const toggleItem = (id: string) => {
+        // Don't allow closing the currently open item - one must always be open
+        if (activeId === id) return
+
         const prevId = activeId
-        const newId = activeId === id ? null : id
+        const newId = id
 
         // Animate closing previous item
         if (prevId && contentRefs.current[prevId]) {
@@ -250,39 +260,20 @@ export function WhyItWorks() {
 
                         {/* Right Column - Image */}
                         <div ref={imageRef} className="relative hidden lg:block">
-                            <div className="relative aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl">
-                                <Image
-                                    src="/IconGuyWithPhone.png"
-                                    alt="Icon App Preview"
-                                    fill
-                                    className="object-cover"
-                                />
-
-                                {/* Floating Card Overlay */}
-                                <div className="absolute bottom-8 left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl w-[80%] max-w-[280px]">
-                                    <div className="text-center text-sm text-gray-500 mb-3">Running Stats</div>
-                                    <div className="grid grid-cols-2 gap-4 text-center">
-                                        <div>
-                                            <div className="text-2xl font-bold text-gray-900">2.3<span className="text-sm font-normal text-gray-500">km</span></div>
-                                            <div className="text-xs text-gray-500">Distance</div>
-                                        </div>
-                                        <div>
-                                            <div className="text-2xl font-bold text-gray-900">4&apos;56&quot;<span className="text-sm font-normal text-gray-500">/km</span></div>
-                                            <div className="text-xs text-gray-500">Pace</div>
-                                        </div>
-                                        <div>
-                                            <div className="text-2xl font-bold text-gray-900">128<span className="text-sm font-normal text-gray-500">kcal</span></div>
-                                            <div className="text-xs text-gray-500">Calories</div>
-                                        </div>
-                                        <div>
-                                            <div className="text-2xl font-bold text-gray-900">12<span className="text-sm font-normal text-gray-500">m</span></div>
-                                            <div className="text-xs text-gray-500">Elevation Gain</div>
-                                        </div>
-                                    </div>
-                                    <button className="mt-4 w-full bg-[#c8e94d] hover:bg-[#b8d93d] text-gray-900 font-medium py-2.5 rounded-full transition-colors text-sm">
-                                        Save
-                                    </button>
-                                </div>
+                            <div className="relative aspect-square rounded-[45px] overflow-hidden shadow-[0_12px_48px_rgba(0,0,0,0.5)] ring-1 ring-white/20 backdrop-blur-sm bg-white/5">
+                                {/* Stack all images and crossfade based on activeId */}
+                                {Object.entries(accordionImages).map(([id, src]) => (
+                                    <Image
+                                        key={id}
+                                        src={src}
+                                        alt={`${id} preview`}
+                                        fill
+                                        className={cn(
+                                            "object-cover transition-opacity duration-500",
+                                            activeId === id ? "opacity-100" : "opacity-0"
+                                        )}
+                                    />
+                                ))}
                             </div>
                         </div>
                     </div>

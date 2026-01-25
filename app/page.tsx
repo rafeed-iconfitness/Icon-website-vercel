@@ -68,99 +68,66 @@ export default function HomePage() {
         <div className="w-full mx-auto max-w-[1200px] px-8">
           <div className="mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Got questions? We&apos;ve got answers.</h2>
-            <p className="text-white/70">
-              Here&apos;s what our ICON family loves about the platform. Our intelligent, agile approach lets you
-              respond quickly to evolving markets and opportunities.
-            </p>
           </div>
 
           <Accordion type="single" collapsible className="space-y-4">
             <AccordionItem value="item-1" className="bg-zinc-900 border border-white/10 rounded-lg px-6">
               <AccordionTrigger className="text-white hover:text-[#FF5733] text-left">
-                What makes ICON different from other fitness apps?
+                What is Icon Training?
               </AccordionTrigger>
               <AccordionContent className="text-white/70">
-                ICON combines AI-powered personalization with expert-crafted workout plans. Unlike generic fitness apps,
-                we adapt to your unique goals, schedule, and progress in real-time.
+                <p className="mb-3">Icon Training is an adaptive AI training platform, built around real experts.</p>
+                <p>Icon Training adapts daily based on your performance, recovery signals, consistency, and priorities. The Icon Training app creates training that evolves with you, rather than forcing you into a rigid plan.</p>
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-2" className="bg-zinc-900 border border-white/10 rounded-lg px-6">
               <AccordionTrigger className="text-white hover:text-[#FF5733] text-left">
-                How does ICON handle my fitness data?
+                How is Icon Training different from other AI fitness apps?
               </AccordionTrigger>
               <AccordionContent className="text-white/70">
-                Your privacy is our priority. All data is encrypted and stored securely. We never share your personal
-                information with third parties.
+                <p className="mb-3">Most AI fitness apps rely on generic, web-scraped information. Icon Training lets you choose which athlete&apos;s guidance you want to follow, and downloads that athlete&apos;s brain into your phone in the form of an Icon.</p>
+                <p>Each Icon is modelled on an individual athlete - their training philosophy, nutrition guidance, recovery strategies, and decision-making.</p>
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-3" className="bg-zinc-900 border border-white/10 rounded-lg px-6">
               <AccordionTrigger className="text-white hover:text-[#FF5733] text-left">
-                Can I get a split-week plan or do I have to commit to full weeks?
+                Is Icon Training suitable for beginners?
               </AccordionTrigger>
               <AccordionContent className="text-white/70">
-                ICON is flexible. You can customize your weekly schedule and train on any days that work for you.
+                <p className="mb-3">Yes. Icon Training adjusts according to your current ability and constraints.</p>
+                <p>You choose what metrics you want to track, and what features you want to activate. Keep it as simple or as complex as you like.</p>
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-4" className="bg-zinc-900 border border-white/10 rounded-lg px-6">
               <AccordionTrigger className="text-white hover:text-[#FF5733] text-left">
-                What does &quot;Founding Icons&quot; mean?
+                Does Icon Training replace a real coach?
               </AccordionTrigger>
               <AccordionContent className="text-white/70">
-                Founding Icons are our early supporters who get lifetime benefits including priority features, exclusive
-                content, and locked-in pricing.
+                <p className="mb-3">Icon does not replace human expertise - it delivers expert-level thinking in an always-available, hyper-speed format.</p>
+                <p>You get consistent guidance, structure, and adaptation without the limitations of schedules or geography.</p>
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-5" className="bg-zinc-900 border border-white/10 rounded-lg px-6">
               <AccordionTrigger className="text-white hover:text-[#FF5733] text-left">
-                How much time do I need each day?
+                How does Icon Training personalise fitness?
               </AccordionTrigger>
               <AccordionContent className="text-white/70">
-                As little as 15 minutes or as much as 90 minutes. Our workouts are flexible and designed to fit your
-                schedule.
+                <p className="mb-3">You choose the data points that matter to you. Icon Training learns from your inputs, habits, recovery, and consistency - then adapts your training accordingly.</p>
+                <p>No unnecessary metrics. No forced tracking. No fluff.</p>
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-6" className="bg-zinc-900 border border-white/10 rounded-lg px-6">
               <AccordionTrigger className="text-white hover:text-[#FF5733] text-left">
-                Is it a chatbot, or is ICON truly AI-first?
+                Do I need wearables or special equipment?
               </AccordionTrigger>
               <AccordionContent className="text-white/70">
-                ICON is truly AI-first. Our system learns from your behavior, adapts to your progress, and provides
-                intelligent recommendations beyond simple chatbot responses.
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="item-7" className="bg-zinc-900 border border-white/10 rounded-lg px-6">
-              <AccordionTrigger className="text-white hover:text-[#FF5733] text-left">
-                Can I substitute or replace my trainer-created workouts?
-              </AccordionTrigger>
-              <AccordionContent className="text-white/70">
-                Yes! While we recommend following your trainer&apos;s plan, you have full flexibility to swap exercises
-                or modify workouts.
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="item-8" className="bg-zinc-900 border border-white/10 rounded-lg px-6">
-              <AccordionTrigger className="text-white hover:text-[#FF5733] text-left">
-                Does ICON have worldwide accessibility?
-              </AccordionTrigger>
-              <AccordionContent className="text-white/70">
-                Yes! ICON is available worldwide. We support multiple languages and currencies to serve our global
-                community.
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="item-9" className="bg-zinc-900 border border-white/10 rounded-lg px-6">
-              <AccordionTrigger className="text-white hover:text-[#FF5733] text-left">
-                Why can&apos;t I join loads ICON?
-              </AccordionTrigger>
-              <AccordionContent className="text-white/70">
-                If you&apos;re experiencing loading issues, please check your internet connection and try refreshing.
-                Contact support if the problem persists.
+                <p className="mb-3">No. Icon Training works best with smart wearable devices - but it works just fine without them.</p>
+                <p>If you use them, Icon Training can incorporate the data. If not, it adapts based on your feedback and performance trends.</p>
               </AccordionContent>
             </AccordionItem>
           </Accordion>
@@ -176,10 +143,10 @@ export default function HomePage() {
             {/* Background Image */}
             <div className="absolute inset-0">
               <Image
-                src="/IconGuyWithPhone.png"
+                src="/CTA/55c6485c-0b0c-4e99-ae3a-f30261a17071.png"
                 alt="Background"
                 fill
-                className="object-cover opacity-40 blur-sm"
+                className="object-contain object-right opacity-40 blur-sm"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-transparent" />
             </div>

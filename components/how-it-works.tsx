@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/carousel"
 import { createHoverAnimation } from "@/hooks/use-gsap"
 import { HowItWorksIllustration } from "@/components/how-it-works-illustration"
+import { WaitlistButton } from "@/components/waitlist-button"
 
 // Register GSAP plugins
 if (typeof window !== "undefined") {
@@ -74,7 +75,7 @@ function StepCard({ step, index, isActive, isMobile, onCardRef }: StepCardProps)
                 {/* Image Area - remove grayscale when active on mobile or hovered on desktop */}
                 <div className={`mt-auto relative w-full h-56 rounded-xl overflow-hidden transition-all duration-100 bg-black ${(isMobile && isActive) ? '' : 'grayscale group-hover:grayscale-0'
                     }`}>
-                    <HowItWorksIllustration isHovered={isHovered} isActive={isActive} />
+                    <HowItWorksIllustration isHovered={isHovered} isActive={isActive} cardIndex={index} />
                 </div>
             </div>
         </div>
@@ -172,13 +173,14 @@ export function HowItWorks() {
 
             <div className="w-full mx-auto px-8 max-w-[1200px] relative z-10">
                 {/* Header */}
-                <div ref={headerRef} className="mb-12 md:mb-20 text-left">
+                <div ref={headerRef} className="mb-6 md:mb-9 text-left">
                     <h2 className="text-4xl md:text-5xl font-bold mb-6">
                         How it works.
                     </h2>
-                    <p className="text-lg text-white/60 max-w-2xl">
+                    <p className="text-lg text-white/60 max-w-2xl mb-8">
                         Your <span className="text-[#FF5733]">Icon</span> adapts to your fitness and your world, not the other way around.
                     </p>
+                    <WaitlistButton variant="pill" showIcon={true} />
                 </div>
 
                 {/* Carousel */}

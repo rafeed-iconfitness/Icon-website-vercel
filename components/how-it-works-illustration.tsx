@@ -8,9 +8,16 @@ import Image from "next/image"
 interface HowItWorksIllustrationProps {
     isHovered?: boolean
     isActive?: boolean
+    cardIndex?: number
 }
 
-export function HowItWorksIllustration({ isHovered = false, isActive = false }: HowItWorksIllustrationProps) {
+const cardIcons = [
+    "/howItWorks/Frame 2085667752.svg",
+    "/howItWorks/Frame 2085667753.svg",
+    "/howItWorks/Frame 2085667754.svg",
+]
+
+export function HowItWorksIllustration({ isHovered = false, isActive = false, cardIndex = 0 }: HowItWorksIllustrationProps) {
     const containerRef = useRef<HTMLDivElement>(null)
     const dotsRef = useRef<HTMLDivElement>(null)
     const iconRef = useRef<HTMLDivElement>(null)
@@ -105,7 +112,7 @@ export function HowItWorksIllustration({ isHovered = false, isActive = false }: 
             {/* Main Icon */}
             <div ref={iconRef} className="relative z-10 w-24 h-24 md:w-32 md:h-32">
                 <Image
-                    src="/howItWorks/Frame 2085667752.svg"
+                    src={cardIcons[cardIndex] || cardIcons[0]}
                     alt="Feature Icon"
                     fill
                     className="object-contain drop-shadow-2xl"

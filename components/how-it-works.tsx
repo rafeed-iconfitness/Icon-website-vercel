@@ -121,21 +121,42 @@ export function HowItWorks() {
     useGSAP(() => {
         if (!sectionRef.current) return
 
-        // Header animations
-        const headerChildren = headerRef.current?.children
-        if (headerChildren) {
-            gsap.from(headerChildren, {
-                y: 20,
-                opacity: 0,
-                duration: 0.6,
-                stagger: 0.2,
-                ease: "power2.out",
+        // Header animations - use timeline for smooth sequential reveal matching Hero section
+        if (headerRef.current) {
+            const title = headerRef.current.querySelector('h2')
+            const desc = headerRef.current.querySelector('p')
+            const btn = headerRef.current.querySelector('button')
+
+            const tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: headerRef.current,
                     start: "top 85%",
                     toggleActions: "play none none none",
-                },
+                }
             })
+
+            if (title) {
+                tl.fromTo(title,
+                    { opacity: 0, y: 20 },
+                    { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }
+                )
+            }
+
+            if (desc) {
+                tl.fromTo(desc,
+                    { opacity: 0, y: 20 },
+                    { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" },
+                    "-=0.4"
+                )
+            }
+
+            if (btn) {
+                tl.fromTo(btn,
+                    { opacity: 0, y: 20 },
+                    { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" },
+                    "-=0.4"
+                )
+            }
         }
 
         // Card animations with stagger

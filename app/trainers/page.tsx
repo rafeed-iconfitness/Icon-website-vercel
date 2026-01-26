@@ -1,6 +1,7 @@
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { TrainerHeroSection } from "@/components/trainer-hero-section"
+import { TrainerPainPoints } from "@/components/trainer-pain-points"
 
 export default function TrainersPage() {
   return (
@@ -8,6 +9,7 @@ export default function TrainersPage() {
       <Header />
 
       <TrainerHeroSection />
+      <TrainerPainPoints />
 
       <Footer />
     </div>

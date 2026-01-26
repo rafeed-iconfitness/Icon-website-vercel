@@ -55,6 +55,7 @@ export function Header() {
   const commonButtonProps = {
     className: cn(isTrainersPage ? "bg-[#3f93cb] hover:bg-[#327ba8] shadow-[0_0_15px_rgba(63,147,203,0.3)] hover:shadow-[0_0_25px_rgba(63,147,203,0.5)]" : ""),
     showIcon: true,
+    iconClassName: isTrainersPage ? "text-[#3f93cb]" : "",
   }
 
   return (

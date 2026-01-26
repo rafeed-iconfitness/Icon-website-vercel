@@ -5,6 +5,7 @@ import { TrainerPainPoints } from "@/components/trainer-pain-points"
 import { TrainerSolution } from "@/components/trainer-solution"
 import { TrainerHowItWorks } from "@/components/trainer-how-it-works"
 import { TrainerWhatYouGet } from "@/components/trainer-what-you-get"
+import { TrainerFAQ } from "@/components/trainer-faq"
 import { TrainerCTA } from "@/components/trainer-cta"
 
 export default function TrainersPage() {
@@ -17,6 +18,7 @@ export default function TrainersPage() {
       <TrainerSolution />
       <TrainerHowItWorks />
       <TrainerWhatYouGet />
+      <TrainerFAQ />
       <TrainerCTA />
 
       <Footer />

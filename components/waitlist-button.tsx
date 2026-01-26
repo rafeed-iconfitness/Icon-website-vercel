@@ -10,13 +10,15 @@ interface WaitlistButtonProps {
     className?: string
     children?: React.ReactNode
     showIcon?: boolean
+    iconClassName?: string
 }
 
 export function WaitlistButton({
     variant = "default",
     className,
     children = "Join Waitlist",
-    showIcon = true
+    showIcon = true,
+    iconClassName
 }: WaitlistButtonProps) {
 
     const baseStyles = "transition-all duration-300 transform group"
@@ -43,7 +45,8 @@ export function WaitlistButton({
                         )}>
                             <ArrowUpRight className={cn(
                                 "w-3 h-3",
-                                variant === "outline" ? "text-white" : "text-[#d14e30]"
+                                variant === "outline" ? "text-white" : "text-[#d14e30]",
+                                iconClassName
                             )} />
                         </div>
                         {/* Hover State: Black circle with white arrow - comes from bottom-left */}

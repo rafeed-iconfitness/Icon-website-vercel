@@ -249,11 +249,11 @@ export function TrainerHeroSection() {
                     {/* Heading matching HeroSection typography */}
                     <h1
                         ref={headingRef}
-                        className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-[90px] font-black text-white tracking-normal leading-[0.9] sm:leading-[0.85] mb-6 md:mb-8 font-sans"
+                        className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-[100px] font-black text-white tracking-normal leading-[0.9] sm:leading-[0.85] mb-4 sm:mb-6 md:mb-8 font-sans"
                     >
-                        Clone your coaching.
+                        CLONE YOUR COACHING.
                         <br />
-                        Multiply your impact.
+                        MULTIPLY YOUR IMPACT.
                     </h1>
 
                     {/* Subtext */}
@@ -271,7 +271,7 @@ export function TrainerHeroSection() {
                 </div>
             </div>
             {/* Bottom Fade to Black matching homepage hero */}
-            <div className="absolute bottom-0 left-0 right-0 h-[250px] bg-gradient-to-t from-black via-black/99 to-transparent z-[25] pointer-events-none" />
+            <div className="absolute bottom-0 left-0 right-0 h-[150px] bg-gradient-to-t from-black via-black/99 to-transparent z-[25] pointer-events-none" />
         </section>
     )
 }

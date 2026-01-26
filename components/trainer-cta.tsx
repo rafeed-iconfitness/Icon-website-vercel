@@ -45,7 +45,7 @@ export function TrainerCTA() {
                             src="/CTA/trainerCTA.png"
                             alt="Trainer Background"
                             fill
-                            className="object-cover object-center opacity-40 blur-sm"
+                            className="object-cover object-right md:object-center opacity-40 blur-sm"
                         />
                         <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-transparent" />
                     </div>

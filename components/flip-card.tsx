@@ -188,7 +188,7 @@ export function FlipCard({ cards, label }: FlipCardProps) {
             {/* Card Stack Container */}
             <div
                 ref={stackRef}
-                className="relative w-[280px] h-[320px] md:w-[320px] md:h-[360px] cursor-grab active:cursor-grabbing select-none mt-12"
+                className="relative w-[220px] h-[280px] sm:w-[280px] sm:h-[320px] md:w-[320px] md:h-[360px] cursor-grab active:cursor-grabbing select-none mt-12"
                 onPointerDown={handlePointerDown}
                 onPointerMove={handlePointerMove}
                 onPointerUp={handlePointerUp}

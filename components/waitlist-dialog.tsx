@@ -85,7 +85,7 @@ export function WaitlistDialog({
                                     variant="ghost"
                                     className="text-white hover:text-white/80"
                                     onClick={() => {
-                                        setOpen(false)
+                                        setOpen?.(false)
                                         setState(null)
                                     }}
                                 >

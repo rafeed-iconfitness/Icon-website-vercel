@@ -22,7 +22,7 @@ export function TrainerCTA() {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
-        console.log("Trainer Application:", formData)
+
         // Here you would typically send this data to your backend
     }
 

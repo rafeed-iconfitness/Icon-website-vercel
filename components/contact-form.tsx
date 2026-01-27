@@ -18,12 +18,12 @@ export function ContactForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-    
+
     // TODO: Replace with actual API call
     await new Promise(resolve => setTimeout(resolve, 1000))
-    
-    console.log("Contact form submitted:", formData)
-    
+
+
+
     // Reset form
     setFormData({
       name: "",
@@ -84,8 +84,8 @@ export function ContactForm() {
         />
       </div>
 
-      <Button 
-        type="submit" 
+      <Button
+        type="submit"
         className="w-full bg-[#FF5733] hover:bg-[#FF5733]/90"
         disabled={isSubmitting}
       >

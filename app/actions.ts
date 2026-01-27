@@ -6,7 +6,7 @@ const schema = z.object({
   email: z.string().email({ message: 'Invalid email address' }),
 })
 
-export async function addToWaitlist(prevState: any, formData: FormData) {
+export async function addToWaitlist(prevState: unknown | null, formData: FormData) {
   const email = formData.get('email')
 
   const result = schema.safeParse({ email })
@@ -21,7 +21,7 @@ export async function addToWaitlist(prevState: any, formData: FormData) {
   // Simulate delay and DB call
   await new Promise((resolve) => setTimeout(resolve, 1000))
 
-  console.log(`Added to waitlist: ${email}`)
+
 
   return {
     success: true,

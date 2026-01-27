@@ -45,20 +45,20 @@ export default function AboutUsPage() {
       <Header />
 
       {/* Hero Section */}
-      <section className="relative pt-16 pb-16">
+      <section className="relative pt-16">
 
         <div className="max-w-[1200px] mx-auto w-full px-8 relative">
           <div ref={heroTextRef} className="max-w-3xl text-left">
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">MEET THE TEAM</h1>
             <p className="text-lg text-white/70">
-              Meet the innovators behind the platform. Delivering the fitness future to trainers all over the world.
+              Meet the innovators behind the platform. Delivering the future of fitness to trainers all over the world.
             </p>
           </div>
         </div>
       </section>
 
       {/* Founding Team */}
-      <section ref={foundingTeamRef} className="py-16">
+      <section ref={foundingTeamRef} className="pt-16">
         <div className="max-w-[1200px] mx-auto w-full px-8">
           <h2 className="text-3xl font-bold text-white mb-8">Founding Team</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
@@ -92,7 +92,7 @@ export default function AboutUsPage() {
       </section>
 
       {/* Wider Team */}
-      <section ref={widerTeamRef} className="py-16">
+      <section ref={widerTeamRef} className="pt-16">
         <div className="max-w-[1200px] mx-auto w-full px-8">
           <h2 className="text-3xl font-bold text-white mb-8">Wider Team</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
@@ -128,8 +128,8 @@ export default function AboutUsPage() {
         </div>
       </section>
 
-      {/* Builders */}
-      <section ref={buildersRef} className="py-16">
+      {/* Builders
+      <section ref={buildersRef} className="pt-16">
         <div className="max-w-[1200px] mx-auto w-full px-8">
           <h2 className="text-3xl font-bold text-white mb-8">Builders</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 mb-16">
@@ -198,7 +198,7 @@ export default function AboutUsPage() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
       <CtaSection />
       <Footer />
     </div>

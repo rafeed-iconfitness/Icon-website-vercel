@@ -55,12 +55,18 @@ export function CtaSection() {
                         </p>
 
                         <div className="w-full max-w-md">
-                            <label className="text-sm font-medium text-white mb-3 block pl-1">
+                            <label
+                                htmlFor="email-cta"
+                                className="text-sm font-medium text-white mb-3 block pl-1"
+                            >
                                 Email
                             </label>
                             <div className="relative flex items-center">
                                 <input
+                                    id="email-cta"
+                                    name="email"
                                     type="email"
+                                    autoComplete="email"
                                     placeholder="jane@example.com"
                                     className="w-full bg-white/10 border border-white/20 rounded-full py-4 pl-6 pr-44 text-white placeholder:text-white/30 focus:outline-none focus:border-[#FF5733]/50 transition-colors backdrop-blur-sm"
                                 />

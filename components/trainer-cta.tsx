@@ -61,12 +61,14 @@ export function TrainerCTA() {
                         <form onSubmit={handleSubmit} className="w-full max-w-md space-y-4">
                             {/* Name Input */}
                             <div>
-                                <label className="text-sm font-medium text-white mb-2 block pl-1">
+                                <label htmlFor="name" className="text-sm font-medium text-white mb-2 block pl-1">
                                     Name
                                 </label>
                                 <input
+                                    id="name"
                                     type="text"
                                     name="name"
+                                    autoComplete="name"
                                     placeholder="Your Name"
                                     required
                                     value={formData.name}
@@ -77,12 +79,14 @@ export function TrainerCTA() {
 
                             {/* Email Input */}
                             <div>
-                                <label className="text-sm font-medium text-white mb-2 block pl-1">
+                                <label htmlFor="email" className="text-sm font-medium text-white mb-2 block pl-1">
                                     Email
                                 </label>
                                 <input
+                                    id="email"
                                     type="email"
                                     name="email"
+                                    autoComplete="email"
                                     placeholder="you@example.com"
                                     required
                                     value={formData.email}
@@ -93,13 +97,13 @@ export function TrainerCTA() {
 
                             {/* Social Handle Input with Selector */}
                             <div>
-                                <label className="text-sm font-medium text-white mb-2 block pl-1">
+                                <label htmlFor="socialHandle" className="text-sm font-medium text-white mb-2 block pl-1">
                                     Social Media Handle
                                 </label>
                                 <div className="flex gap-2">
                                     <div className="w-[140px] shrink-0">
-                                        <Select onValueChange={handlePlatformChange} required>
-                                            <SelectTrigger className="w-full h-[50px] rounded-full bg-white/10 border-white/20 text-white focus:ring-[#3f93cb]/50">
+                                        <Select name="platform" onValueChange={handlePlatformChange} required>
+                                            <SelectTrigger aria-label="Social Media Platform" className="w-full h-[50px] rounded-full bg-white/10 border-white/20 text-white focus:ring-[#3f93cb]/50">
                                                 <SelectValue placeholder="Platform" />
                                             </SelectTrigger>
                                             <SelectContent className="bg-zinc-900 border-white/10 text-white">
@@ -113,8 +117,10 @@ export function TrainerCTA() {
                                     </div>
                                     <div className="flex-1">
                                         <input
+                                            id="socialHandle"
                                             type="text"
                                             name="socialHandle"
+                                            autoComplete="username"
                                             placeholder="@handle"
                                             required
                                             value={formData.socialHandle}

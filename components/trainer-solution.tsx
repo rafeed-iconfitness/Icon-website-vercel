@@ -85,7 +85,7 @@ function SolutionItem({ imageSrc, imageAlt, title, description }: SolutionItemPr
 
             {/* Text that appears after expansion */}
             <div ref={textRef} className="mt-12 text-center">
-                <h3 className="text-white text-2xl md:text-3xl font-bold mb-2">
+                <h3 className="text-white text-4xl md:text-5xl font-bold mb-6">
                     {title}
                 </h3>
                 <p className="text-white/60 text-base max-w-md">

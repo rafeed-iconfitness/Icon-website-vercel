@@ -194,7 +194,14 @@ export function Header() {
 
       {/* Dialogs */}
       <Dialog open={contactDialogOpen} onOpenChange={setContactDialogOpen}>
-        <DialogContent className="max-w-lg">
+        <DialogContent
+          className="max-w-lg"
+          onOpenAutoFocus={(e) => {
+            if (window.innerWidth < 768) {
+              e.preventDefault()
+            }
+          }}
+        >
           <DialogHeader>
             <DialogTitle>Contact Us</DialogTitle>
             <DialogDescription>

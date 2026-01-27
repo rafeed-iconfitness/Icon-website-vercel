@@ -56,6 +56,7 @@ export function WhyItWorks() {
     const subheadingRef = useRef<HTMLParagraphElement>(null)
     const accordionItemsRef = useRef<(HTMLDivElement | null)[]>([])
     const imageRef = useRef<HTMLDivElement>(null)
+    const mobileImageRef = useRef<HTMLDivElement>(null)
     const contentRefs = useRef<{ [key: string]: HTMLDivElement | null }>({})
 
     const toggleItem = (id: string) => {
@@ -134,7 +135,7 @@ export function WhyItWorks() {
             })
         })
 
-        // Image slide in
+        // Desktop Image slide in
         gsap.from(imageRef.current, {
             x: 40,
             opacity: 0,
@@ -147,6 +148,22 @@ export function WhyItWorks() {
                 toggleActions: "play none none none",
             },
         })
+
+        // Mobile Image slide in
+        if (mobileImageRef.current) {
+            gsap.from(mobileImageRef.current, {
+                y: 20,
+                opacity: 0,
+                duration: 0.6,
+                delay: 0.3,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: cardRef.current,
+                    start: "top 85%",
+                    toggleActions: "play none none none",
+                },
+            })
+        }
 
     }, { scope: sectionRef })
 
@@ -167,7 +184,7 @@ export function WhyItWorks() {
                     ref={cardRef}
                     className="bg-[#FF5733] rounded-3xl p-8 md:p-12 lg:p-16 overflow-hidden"
                 >
-                    <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+                    <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
                         {/* Left Column - Header and Accordion */}
                         <div>
                             {/* Section Label */}
@@ -191,6 +208,24 @@ export function WhyItWorks() {
                             >
                                 Our AI-powered platform goes beyond tracking — it adapts how you train, recover, and perform.
                             </p>
+
+                            {/* Mobile Image */}
+                            <div ref={mobileImageRef} className="relative block lg:hidden mb-8">
+                                <div className="relative aspect-square rounded-[45px] overflow-hidden shadow-[0_12px_48px_rgba(0,0,0,0.5)] ring-1 ring-white/20 backdrop-blur-sm bg-white/5">
+                                    {Object.entries(accordionImages).map(([id, src]) => (
+                                        <Image
+                                            key={id}
+                                            src={src}
+                                            alt={`${id} preview`}
+                                            fill
+                                            className={cn(
+                                                "object-cover transition-opacity duration-500",
+                                                activeId === id ? "opacity-100" : "opacity-0"
+                                            )}
+                                        />
+                                    ))}
+                                </div>
+                            </div>
 
                             {/* Accordion */}
                             <div className="space-y-3">
@@ -258,7 +293,7 @@ export function WhyItWorks() {
                             </div>
                         </div>
 
-                        {/* Right Column - Image */}
+                        {/* Right Column - Desktop Image */}
                         <div ref={imageRef} className="relative hidden lg:block">
                             <div className="relative aspect-square rounded-[45px] overflow-hidden shadow-[0_12px_48px_rgba(0,0,0,0.5)] ring-1 ring-white/20 backdrop-blur-sm bg-white/5">
                                 {/* Stack all images and crossfade based on activeId */}

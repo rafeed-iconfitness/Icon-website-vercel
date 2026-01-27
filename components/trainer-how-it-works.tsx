@@ -4,6 +4,7 @@ import * as React from "react"
 import { useRef, useState, useEffect } from "react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { ScrollToPlugin } from "gsap/ScrollToPlugin"
 import { useGSAP } from "@gsap/react"
 import {
     Carousel,
@@ -17,7 +18,7 @@ import { ApplyNowButton } from "@/components/apply-now-button"
 
 // Register GSAP plugins
 if (typeof window !== "undefined") {
-    gsap.registerPlugin(ScrollTrigger)
+    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin)
 }
 
 const steps = [
@@ -317,7 +318,11 @@ export function TrainerHowItWorks() {
                         Turn your expertise into a digital business in three simple steps.
                     </p>
                     {/* Replaced ApplyNowButton pill variant with standard component call to fix disappearance */}
-                    <ApplyNowButton variant="pill" showIcon={true} />
+                    <ApplyNowButton
+                        variant="pill"
+                        showIcon={true}
+                        onClick={() => gsap.to(window, { duration: 1.5, scrollTo: { y: "max" }, ease: "power2.out" })}
+                    />
                 </div>
 
                 {/* Carousel */}

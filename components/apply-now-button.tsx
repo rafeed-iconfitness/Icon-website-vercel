@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import { ArrowUpRight } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-interface ApplyNowButtonProps {
+interface ApplyNowButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     variant?: "default" | "pill"
     className?: string
     children?: React.ReactNode
@@ -15,7 +15,8 @@ export function ApplyNowButton({
     variant = "default",
     className,
     children = "Apply Now",
-    showIcon = true
+    showIcon = true,
+    ...props
 }: ApplyNowButtonProps) {
 
     const baseStyles = "transition-all duration-300 transform group"
@@ -27,6 +28,7 @@ export function ApplyNowButton({
 
     return (
         <Button
+            {...props}
             className={cn(baseStyles, variants[variant], className)}
         >
             {children}

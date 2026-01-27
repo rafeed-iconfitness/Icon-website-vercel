@@ -9,6 +9,8 @@ import { ContactForm } from "@/components/contact-form"
 import { WaitlistButton } from "@/components/waitlist-button"
 import styles from "@/styles/header.module.css"
 import { cn } from "@/lib/utils"
+import { ApplyNowButton } from "@/components/apply-now-button"
+import gsap from "gsap"
 
 const navLinks = [
   { name: 'Home', href: '/' },
@@ -49,6 +51,22 @@ export function Header() {
   const handleContactClick = (e: React.MouseEvent) => {
     e.preventDefault()
     setContactDialogOpen(true)
+    closeMenu()
+  }
+
+  const handleApplyNowClick = () => {
+    const startY = window.scrollY
+    const tweenObj = { p: 0 }
+    gsap.to(tweenObj, {
+      p: 1,
+      duration: 1.5,
+      ease: "power2.out",
+      onUpdate: () => {
+        const currentMax = document.documentElement.scrollHeight - window.innerHeight
+        const nextY = startY + (currentMax - startY) * tweenObj.p
+        window.scrollTo(0, nextY)
+      }
+    })
     closeMenu()
   }
 
@@ -109,20 +127,37 @@ export function Header() {
 
           {/* Part 3: Action button for desktop */}
           <div className={cn(styles.navSection, styles.navRight)}>
-            <WaitlistButton {...commonButtonProps}>
-              {buttonText}
-            </WaitlistButton>
+            {isTrainersPage ? (
+              <ApplyNowButton
+                onClick={handleApplyNowClick}
+                variant="default"
+              />
+            ) : (
+              <WaitlistButton {...commonButtonProps}>
+                {buttonText}
+              </WaitlistButton>
+            )}
           </div>
 
           {/* Wrapper for Mobile Controls */}
           <div className={styles.mobileControls}>
             {/* Mobile Button - Fades out when menu open */}
-            <WaitlistButton
-              {...commonButtonProps}
-              className={cn(commonButtonProps.className, "!h-9 !px-4 !text-sm", menuOpen ? styles.hiddenWhenOpen : '')}
-            >
-              {buttonText}
-            </WaitlistButton>
+            {/* Mobile Button - Fades out when menu open */}
+            {isTrainersPage ? (
+              <ApplyNowButton
+                onClick={handleApplyNowClick}
+                variant="default"
+                className={cn("!h-9 !px-4 !text-sm", menuOpen ? styles.hiddenWhenOpen : '')}
+                showIcon={true}
+              />
+            ) : (
+              <WaitlistButton
+                {...commonButtonProps}
+                className={cn(commonButtonProps.className, "!h-9 !px-4 !text-sm", menuOpen ? styles.hiddenWhenOpen : '')}
+              >
+                {buttonText}
+              </WaitlistButton>
+            )}
 
             {/* Hamburger - Always visible */}
             <div

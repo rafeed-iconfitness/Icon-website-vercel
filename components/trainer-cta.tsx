@@ -36,7 +36,7 @@ export function TrainerCTA() {
     }
 
     return (
-        <section className="py-16 bg-black">
+        <section id="trainer-cta" className="py-16 bg-black">
             <div className="w-full mx-auto max-w-[1200px] px-8">
                 <div className="relative w-full mx-auto bg-zinc-900 rounded-[32px] overflow-hidden border border-white/10">
                     {/* Background Image */}

@@ -33,14 +33,14 @@ export function CtaSection() {
     return (
         <section ref={ctaRef} className="py-16 bg-black">
             <div className="w-full mx-auto max-w-[1200px] px-8">
-                <div className="relative w-full mx-auto bg-zinc-900 rounded-[32px] overflow-hidden border border-white/10">
+                <div className="relative w-full mx-auto bg-black rounded-[32px] overflow-hidden border border-white/10">
                     {/* Background Image */}
                     <div className="absolute inset-0">
                         <Image
                             src="/CTA/55c6485c-0b0c-4e99-ae3a-f30261a17071.png"
                             alt="Background"
                             fill
-                            className="object-contain object-right opacity-40 blur-sm"
+                            className="object-contain object-[75%_45%] opacity-50 blur-sm"
                         />
                         <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-transparent" />
                     </div>

@@ -3,13 +3,14 @@
 import { useRef } from "react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { ScrollToPlugin } from "gsap/ScrollToPlugin"
 import { useGSAP } from "@gsap/react"
 import Image from "next/image"
 import { ApplyNowButton } from "@/components/apply-now-button"
 
 // Register GSAP plugins
 if (typeof window !== "undefined") {
-    gsap.registerPlugin(ScrollTrigger)
+    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin)
 }
 
 export function TrainerHeroSection() {
@@ -266,7 +267,24 @@ export function TrainerHeroSection() {
 
                     {/* Apply Now Button */}
                     <div ref={buttonRef}>
-                        <ApplyNowButton variant="pill" showIcon={true} />
+                        <ApplyNowButton
+                            variant="pill"
+                            showIcon={true}
+                            onClick={() => {
+                                const startY = window.scrollY
+                                const tweenObj = { p: 0 }
+                                gsap.to(tweenObj, {
+                                    p: 1,
+                                    duration: 1.5,
+                                    ease: "power2.out",
+                                    onUpdate: () => {
+                                        const currentMax = document.documentElement.scrollHeight - window.innerHeight
+                                        const nextY = startY + (currentMax - startY) * tweenObj.p
+                                        window.scrollTo(0, nextY)
+                                    }
+                                })
+                            }}
+                        />
                     </div>
                 </div>
             </div>

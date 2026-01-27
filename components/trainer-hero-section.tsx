@@ -80,6 +80,16 @@ export function TrainerHeroSection() {
                 opacity: 1,
                 x: 0,
                 duration: 0.4,
+                onComplete: () => {
+                    const isMobile = window.matchMedia("(max-width: 767px)").matches
+                    if (isMobile) {
+                        gsap.to(athleteRef.current, {
+                            opacity: 0.7,
+                            duration: 1.5,
+                            ease: "power1.inOut"
+                        })
+                    }
+                }
             }, "-=0.2")
         }
 

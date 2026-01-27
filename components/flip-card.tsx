@@ -8,9 +8,10 @@ import Image from "next/image"
 interface FlipCardProps {
     cards: string[]
     label: string
+    labelColor?: string
 }
 
-export function FlipCard({ cards, label }: FlipCardProps) {
+export function FlipCard({ cards, label, labelColor = "#B08F7D" }: FlipCardProps) {
     const containerRef = useRef<HTMLDivElement>(null)
     const stackRef = useRef<HTMLDivElement>(null)
     const [cardOrder, setCardOrder] = useState<number[]>(() => cards.map((_, i) => i))
@@ -181,7 +182,10 @@ export function FlipCard({ cards, label }: FlipCardProps) {
     return (
         <div ref={containerRef} className="flex flex-col items-center">
             {/* Label */}
-            <span className="text-[#3B82F6] text-lg font-semibold mb-8 tracking-wide">
+            <span
+                className="text-lg font-semibold mb-8 tracking-wide"
+                style={{ color: labelColor }}
+            >
                 {label}
             </span>
 

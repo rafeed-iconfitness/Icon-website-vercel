@@ -183,7 +183,7 @@ export function FlipCard({ cards, label, labelColor = "#B08F7D" }: FlipCardProps
         <div ref={containerRef} className="flex flex-col items-center">
             {/* Label */}
             <span
-                className="text-lg font-semibold mb-8 tracking-wide"
+                className="text-3xl font-semibold mb-8 tracking-wide"
                 style={{ color: labelColor }}
             >
                 {label}

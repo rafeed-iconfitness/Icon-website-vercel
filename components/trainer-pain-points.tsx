@@ -84,10 +84,10 @@ export function TrainerPainPoints() {
                     className="flex flex-col md:flex-row justify-center items-center gap-16 md:gap-24 lg:gap-32"
                 >
                     {/* Coaches Column */}
-                    <FlipCard cards={coachCards} label="Coaches" labelColor="#B08F7D" />
+                    <FlipCard cards={coachCards} label="Coaches" labelColor="#3F93CB" />
 
                     {/* Creators Column */}
-                    <FlipCard cards={creatorCards} label="Creators" labelColor="#728983" />
+                    <FlipCard cards={creatorCards} label="Creators" labelColor="#3F93CB" />
                 </div>
             </div>
         </section>

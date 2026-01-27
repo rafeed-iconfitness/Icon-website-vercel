@@ -146,7 +146,7 @@ export function TrainerSolution() {
         <section ref={sectionRef} className="py-20 md:py-32 bg-black">
             {/* Header */}
             <div ref={headerRef} className="w-full max-w-[1200px] mx-auto px-8 mb-16">
-                <h2 className="text-[#3B82F6] text-2xl md:text-3xl font-bold mb-3">
+                <h2 className="text-[#3F93CB] text-2xl md:text-3xl font-bold mb-3">
                     Meet Your Icon
                 </h2>
                 <p className="text-white/60 text-base md:text-lg max-w-xl">

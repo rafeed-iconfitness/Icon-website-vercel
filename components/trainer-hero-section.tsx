@@ -228,7 +228,7 @@ export function TrainerHeroSection() {
                 {/* Athlete Image */}
                 <div
                     ref={athleteRef}
-                    className="absolute bottom-40 -right-[20%] w-[90%] h-[50%] md:bottom-[10%] md:right-[-10%] md:w-[58.5%] md:h-[90%] z-10 block opacity-60 md:opacity-100"
+                    className="absolute bottom-40 -right-[40%] w-[140%] h-[60%] md:bottom-[10%] md:right-[-10%] md:w-[58.5%] md:h-[90%] z-10 block opacity-60 md:opacity-100"
                 >
                     <Image
                         src="/TrainerHero/Athlete.svg"
@@ -242,7 +242,7 @@ export function TrainerHeroSection() {
                     {/* Label */}
                     <div
                         ref={labelRef}
-                        className="text-[#3B82F6] text-base font-bold tracking-widest uppercase mb-6"
+                        className="text-[#3F93CB] text-base font-bold tracking-widest uppercase mb-6"
                     >
                         BECOME AN ICON
                     </div>
@@ -289,7 +289,7 @@ export function TrainerHeroSection() {
                 </div>
             </div>
             {/* Bottom Fade to Black matching homepage hero */}
-            <div className="absolute bottom-0 left-0 right-0 h-[150px] bg-gradient-to-t from-black via-black/99 to-transparent z-[25] pointer-events-none" />
+            <div className="absolute bottom-0 left-0 right-0 h-[240px] md:h-[150px] bg-gradient-to-t from-black via-black/99 to-transparent z-[25] pointer-events-none" />
         </section>
     )
 }

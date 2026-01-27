@@ -70,7 +70,7 @@ function BenefitCard({ title, description, index }: BenefitCardProps) {
                     - Full 360 coverage creates a continuous neon line.
                 */}
                 <div
-                    className="absolute -inset-[150%]"
+                    className="absolute -inset-[150%] z-0"
                     style={{
                         background: `conic-gradient(from 0deg at 50% 50%, 
                             #FF5733 0deg,
@@ -85,10 +85,10 @@ function BenefitCard({ title, description, index }: BenefitCardProps) {
                 />
 
                 {/* Inner mask - creates the border thickness */}
-                <div className="absolute inset-[2px] bg-[#0a0a0a] rounded-[10px] z-[1]" />
+                <div className="absolute inset-[2px] bg-[#0a0a0a] rounded-[10px] z-10" />
 
                 {/* Card content */}
-                <div className="relative z-10 p-5 md:p-6 h-full">
+                <div className="relative z-20 p-5 md:p-6 h-full">
                     <h3 className="text-white text-base md:text-lg font-bold mb-2">
                         {title}
                     </h3>

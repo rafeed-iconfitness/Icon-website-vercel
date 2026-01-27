@@ -179,7 +179,7 @@ function StepCard({ step, index, isActive, isMobile, onCardRef }: StepCardProps)
             {...hoverHandlers}
         >
             <div className="p-8 flex flex-col h-full relative z-10">
-                <h3 className={`text-2xl font-bold mb-4 transition-colors duration-100 ${(isMobile && isActive) ? 'text-[#3B82F6]' : 'text-white group-hover:text-[#3B82F6]'
+                <h3 className={`text-2xl font-bold mb-4 transition-colors duration-100 ${(isMobile && isActive) ? 'text-[#3F93CB]' : 'text-white group-hover:text-[#3F93CB]'
                     }`}>
                     {step.title}
                 </h3>

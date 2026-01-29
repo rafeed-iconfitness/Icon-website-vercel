@@ -63,8 +63,8 @@ export default function AboutUsPage() {
           <h2 className="text-3xl font-bold text-white mb-8">Founding Team</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
             {[
-              { name: "Mish Choudhury", role: "Chief Vision Officer", image: "/aboutUs/Mish.png" },
-              { name: "Taseen Choudhury", role: "Chief Operating Officer", image: "/aboutUs/Taseen.png" },
+              { name: "Mish Choudhury", role: "Chief Vision Officer", image: "/aboutUs/Mish.png", linkedin: "https://www.linkedin.com/in/mish-choudhury/" },
+              { name: "Taseen Choudhury", role: "Chief Operating Officer", image: "/aboutUs/Taseen.png", linkedin: "https://www.linkedin.com/in/taseen-choudhury-a6409b396/" },
             ].map((member, idx) => (
               <div key={idx} className="rounded-lg overflow-hidden border border-white/10 group">
                 <div className="aspect-square relative">
@@ -81,7 +81,7 @@ export default function AboutUsPage() {
                       <h3 className="text-base font-bold text-white leading-tight">{member.name}</h3>
                       <p className="text-xs text-white/60 mt-1">{member.role}</p>
                     </div>
-                    <Link href="#" className="hover:opacity-80 transition-opacity">
+                    <Link href={member.linkedin || "#"} className="hover:opacity-80 transition-opacity">
                       <Image
                         src="/linkedinButton.svg"
                         alt="LinkedIn"
@@ -104,11 +104,11 @@ export default function AboutUsPage() {
           <h2 className="text-3xl font-bold text-white mb-8">Wider Team</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
             {[
-              { name: "Henry Loynes", role: "Head of Asia-Pacific Operations", image: "/aboutUs/Henry.png" },
-              { name: "Richard Bowdler", role: "AI Technical Advisor", image: "/aboutUs/Richard.png" },
-              { name: "Ishan Khanna", role: "Software Technical Advisor", image: "/aboutUs/Ishan.png" },
-              { name: "Adam Gibrill", role: "Investment Counsel", image: "/aboutUs/Adam.png" },
-              { name: "Manraj Saggu", role: "Investment Counsel", image: "/aboutUs/Manraj.png" },
+              { name: "Henry Loynes", role: "Head of Asia-Pacific Operations", image: "/aboutUs/Henry.png", linkedin: "https://www.linkedin.com/in/henry-loynes-414656387/" },
+              { name: "Richard Bowdler", role: "AI Technical Advisor", image: "/aboutUs/Richard.png", linkedin: "https://www.linkedin.com/in/richardbowdler/" },
+              { name: "Ishan Khanna", role: "Software Technical Advisor", image: "/aboutUs/Ishan.png", linkedin: "https://www.linkedin.com/in/droidchef/" },
+              { name: "Adam Gibrill", role: "Investment Counsel", image: "/aboutUs/Adam.png", linkedin: "#" },
+              { name: "Manraj Saggu", role: "Investment Counsel", image: "/aboutUs/Manraj.png", linkedin: "https://www.linkedin.com/in/manraj-saggu-ba37b560/" },
             ].map((member, idx) => (
               <div key={idx} className="rounded-lg overflow-hidden border border-white/10 group">
                 <div className="aspect-square relative">
@@ -125,7 +125,7 @@ export default function AboutUsPage() {
                       <h3 className="text-base font-bold text-white leading-tight">{member.name}</h3>
                       <p className="text-xs text-white/60 mt-1">{member.role}</p>
                     </div>
-                    <Link href="#" className="hover:opacity-80 transition-opacity">
+                    <Link href={member.linkedin || "#"} className="hover:opacity-80 transition-opacity">
                       <Image
                         src="/linkedinButton.svg"
                         alt="LinkedIn"

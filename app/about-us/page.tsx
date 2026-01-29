@@ -63,11 +63,18 @@ export default function AboutUsPage() {
           <h2 className="text-3xl font-bold text-white mb-8">Founding Team</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
             {[
-              { name: "Mish Choudhury", role: "Chief Vision Officer" },
-              { name: "Taseen Choudhury", role: "Chief Operating Officer" },
+              { name: "Mish Choudhury", role: "Chief Vision Officer", image: "/aboutUs/Mish.png" },
+              { name: "Taseen Choudhury", role: "Chief Operating Officer", image: "/aboutUs/Taseen.png" },
             ].map((member, idx) => (
               <div key={idx} className="rounded-lg overflow-hidden border border-white/10 group">
-                <div className="aspect-square bg-gradient-to-br from-zinc-800 to-zinc-900" />
+                <div className="aspect-square relative">
+                  <Image
+                    src={member.image}
+                    alt={member.name}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
                 <div className="p-4">
                   <div className="flex items-start justify-between gap-2">
                     <div>
@@ -97,14 +104,21 @@ export default function AboutUsPage() {
           <h2 className="text-3xl font-bold text-white mb-8">Wider Team</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
             {[
-              { name: "Henry Loynes", role: "Head of Asia-Pacific Operations" },
-              { name: "Richard Bowdler", role: "AI Technical Advisor" },
-              { name: "Ishan Khanna", role: "Software Technical Advisor" },
-              { name: "Adam Gibrill", role: "Investment Counsel" },
-              { name: "Manraj Saggu", role: "Investment Counsel" },
+              { name: "Henry Loynes", role: "Head of Asia-Pacific Operations", image: "/aboutUs/Henry.png" },
+              { name: "Richard Bowdler", role: "AI Technical Advisor", image: "/aboutUs/Richard.png" },
+              { name: "Ishan Khanna", role: "Software Technical Advisor", image: "/aboutUs/Ishan.png" },
+              { name: "Adam Gibrill", role: "Investment Counsel", image: "/aboutUs/Adam.png" },
+              { name: "Manraj Saggu", role: "Investment Counsel", image: "/aboutUs/Manraj.png" },
             ].map((member, idx) => (
               <div key={idx} className="rounded-lg overflow-hidden border border-white/10 group">
-                <div className="aspect-square bg-gradient-to-br from-zinc-800 to-zinc-900" />
+                <div className="aspect-square relative">
+                  <Image
+                    src={member.image}
+                    alt={member.name}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
                 <div className="p-4">
                   <div className="flex items-start justify-between gap-2">
                     <div>

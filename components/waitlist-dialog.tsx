@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input"
 import { ArrowUpRight, Loader2, CheckCircle2 } from "lucide-react"
 import { addToWaitlist } from "@/app/actions"
 import { useFormStatus } from "react-dom"
+import { SuccessMessage } from "@/components/success-message"
 
 function SubmitButton() {
     const { pending } = useFormStatus()
@@ -77,21 +78,13 @@ export function WaitlistDialog({
                         </DialogHeader>
 
                         {state?.success ? (
-                            <div className="flex flex-col items-center justify-center p-6 space-y-4 bg-white/10 rounded-2xl border border-white/20 w-full max-w-sm">
-                                <CheckCircle2 className="w-12 h-12 text-[#FF5733]" />
-                                <p className="text-xl font-medium">You're on the list!</p>
-                                <p className="text-sm text-white/60">We'll be in touch soon.</p>
-                                <Button
-                                    variant="ghost"
-                                    className="text-white hover:text-white/80"
-                                    onClick={() => {
-                                        setOpen?.(false)
-                                        setState(null)
-                                    }}
-                                >
-                                    Close
-                                </Button>
-                            </div>
+                            <SuccessMessage
+                                className="w-full max-w-sm bg-white/10 border-white/20"
+                                onClose={() => {
+                                    setOpen?.(false)
+                                    setState(null)
+                                }}
+                            />
                         ) : (
                             <form action={handleSubmit} className="w-full max-w-md space-y-4">
                                 <div className="flex flex-col sm:flex-row gap-3">

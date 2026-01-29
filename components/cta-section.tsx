@@ -7,6 +7,7 @@ import { useGSAP } from "@gsap/react"
 import Image from "next/image"
 import { WaitlistButton } from "@/components/waitlist-button"
 import { addToWaitlist } from "@/app/actions"
+import { SuccessMessage } from "@/components/success-message"
 
 // Register GSAP plugins
 if (typeof window !== "undefined") {
@@ -58,21 +59,13 @@ export function CtaSection() {
                         </p>
 
                         {success ? (
-                            <div className="flex flex-col items-start justify-center py-4 space-y-4 w-full max-w-md">
-                                <div className="flex items-center gap-3">
-                                    <div className="w-12 h-12 bg-[#d14e30]/20 rounded-full flex items-center justify-center">
-                                        <svg className="w-6 h-6 text-[#d14e30]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                                        </svg>
-                                    </div>
-                                    <div>
-                                        <h3 className="text-xl font-bold text-white">You're on the list!</h3>
-                                        <p className="text-white/70 text-sm">
-                                            We'll be in touch soon.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
+                            <SuccessMessage
+                                title="You're on the list!"
+                                description="We'll be in touch soon."
+                                className="w-full max-w-md bg-white/10 border-white/20"
+                                buttonText="Close"
+                                onClose={() => setSuccess(false)}
+                            />
                         ) : (
                             <form action={async (formData) => {
                                 setIsPending(true)

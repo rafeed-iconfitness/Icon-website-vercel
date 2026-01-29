@@ -1,6 +1,7 @@
 'use server'
 
 import { z } from 'zod'
+import nodemailer from 'nodemailer'
 
 const schema = z.object({
   email: z.string().email({ message: 'Invalid email address' }),
@@ -124,5 +125,68 @@ export async function submitTrainerApplication(prevState: unknown | null, formDa
   return {
     success: true,
     message: "Application submitted successfully!",
+  }
+}
+
+export async function submitContactForm(prevState: unknown | null, formData: FormData) {
+  const name = formData.get("name") as string
+  const email = formData.get("email") as string
+  const subject = formData.get("subject") as string
+  const message = formData.get("message") as string
+
+  if (!name || !email || !subject || !message) {
+    return { success: false, message: "All fields are required" }
+  }
+
+  // Basic email validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if (!emailRegex.test(email)) {
+    return { success: false, message: "Invalid email address" }
+  }
+
+  try {
+    const transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 587,
+      secure: false, // true for 465, false for other ports
+      auth: {
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_APP_PASSWORD,
+      },
+      tls: {
+        rejectUnauthorized: false
+      }
+    })
+
+    const mailOptions = {
+      from: `"Contact Form" <${process.env.GMAIL_USER}>`,
+      to: "mish@icontraining.app",
+      replyTo: email,
+      subject: `New Contact Form Submission: ${subject}`,
+      text: `
+        Name: ${name}
+        Email: ${email}
+        Subject: ${subject}
+        
+        Message:
+        ${message}
+      `,
+      html: `
+        <h3>New Contact Form Submission</h3>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Subject:</strong> ${subject}</p>
+        <br>
+        <p><strong>Message:</strong></p>
+        <p>${message.replace(/\n/g, '<br>')}</p>
+      `,
+    }
+
+    await transporter.sendMail(mailOptions)
+
+    return { success: true, message: "Message sent successfully!" }
+  } catch (error) {
+    console.error("Email Error:", error)
+    return { success: false, message: "Failed to send message. Please try again later." }
   }
 }

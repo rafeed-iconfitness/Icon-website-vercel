@@ -5,6 +5,9 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
+import { toast } from "sonner"
+import { submitContactForm } from "@/app/actions"
+import { SuccessMessage } from "@/components/success-message"
 
 export function ContactForm() {
   const [formData, setFormData] = useState({
@@ -14,24 +17,45 @@ export function ContactForm() {
     message: "",
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSuccess, setIsSuccess] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
 
-    // TODO: Replace with actual API call
-    await new Promise(resolve => setTimeout(resolve, 1000))
+    const formDataToSend = new FormData()
+    formDataToSend.append("name", formData.name)
+    formDataToSend.append("email", formData.email)
+    formDataToSend.append("subject", formData.subject)
+    formDataToSend.append("message", formData.message)
 
+    const result = await submitContactForm(null, formDataToSend)
 
+    if (result.success) {
+      setIsSuccess(true)
+      setFormData({
+        name: "",
+        email: "",
+        subject: "",
+        message: "",
+      })
+    } else {
+      toast.error(result.message)
+    }
 
-    // Reset form
-    setFormData({
-      name: "",
-      email: "",
-      subject: "",
-      message: "",
-    })
     setIsSubmitting(false)
+  }
+
+  if (isSuccess) {
+    return (
+      <SuccessMessage
+        title="Message Sent!"
+        description="Thanks for reaching out. We'll get back to you shortly."
+        onClose={() => setIsSuccess(false)}
+        buttonText="Send Another Message"
+        className="w-full max-w-none bg-white/5"
+      />
+    )
   }
 
   return (

@@ -81,15 +81,17 @@ export default function AboutUsPage() {
                       <h3 className="text-base font-bold text-white leading-tight">{member.name}</h3>
                       <p className="text-xs text-white/60 mt-1">{member.role}</p>
                     </div>
-                    <Link href={member.linkedin || "#"} className="hover:opacity-80 transition-opacity">
-                      <Image
-                        src="/linkedinButton.svg"
-                        alt="LinkedIn"
-                        width={20}
-                        height={20}
-                        className="w-5 h-5 invert"
-                      />
-                    </Link>
+                    {member.linkedin && (
+                      <Link href={member.linkedin} className="hover:opacity-80 transition-opacity">
+                        <Image
+                          src="/linkedinButton.svg"
+                          alt="LinkedIn"
+                          width={20}
+                          height={20}
+                          className="w-5 h-5 invert"
+                        />
+                      </Link>
+                    )}
                   </div>
                 </div>
               </div>
@@ -107,7 +109,7 @@ export default function AboutUsPage() {
               { name: "Henry Loynes", role: "Head of Asia-Pacific Operations", image: "/aboutUs/Henry.png", linkedin: "https://www.linkedin.com/in/henry-loynes-414656387/" },
               { name: "Richard Bowdler", role: "AI Technical Advisor", image: "/aboutUs/Richard.png", linkedin: "https://www.linkedin.com/in/richardbowdler/" },
               { name: "Ishan Khanna", role: "Software Technical Advisor", image: "/aboutUs/Ishan.png", linkedin: "https://www.linkedin.com/in/droidchef/" },
-              { name: "Adam Gibrill", role: "Investment Counsel", image: "/aboutUs/Adam.png", linkedin: "#" },
+              { name: "Adam Gibrill", role: "Investment Counsel", image: "/aboutUs/Adam.png" },
               { name: "Manraj Saggu", role: "Investment Counsel", image: "/aboutUs/Manraj.png", linkedin: "https://www.linkedin.com/in/manraj-saggu-ba37b560/" },
             ].map((member, idx) => (
               <div key={idx} className="rounded-lg overflow-hidden border border-white/10 group">
@@ -125,15 +127,17 @@ export default function AboutUsPage() {
                       <h3 className="text-base font-bold text-white leading-tight">{member.name}</h3>
                       <p className="text-xs text-white/60 mt-1">{member.role}</p>
                     </div>
-                    <Link href={member.linkedin || "#"} className="hover:opacity-80 transition-opacity">
-                      <Image
-                        src="/linkedinButton.svg"
-                        alt="LinkedIn"
-                        width={20}
-                        height={20}
-                        className="w-5 h-5 invert"
-                      />
-                    </Link>
+                    {member.linkedin && (
+                      <Link href={member.linkedin} className="hover:opacity-80 transition-opacity">
+                        <Image
+                          src="/linkedinButton.svg"
+                          alt="LinkedIn"
+                          width={20}
+                          height={20}
+                          className="w-5 h-5 invert"
+                        />
+                      </Link>
+                    )}
                   </div>
                 </div>
               </div>

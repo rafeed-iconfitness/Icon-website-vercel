@@ -1,11 +1,12 @@
 "use client"
 
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useGSAP } from "@gsap/react"
 import Image from "next/image"
 import { WaitlistButton } from "@/components/waitlist-button"
+import { addToWaitlist } from "@/app/actions"
 
 // Register GSAP plugins
 if (typeof window !== "undefined") {
@@ -14,6 +15,8 @@ if (typeof window !== "undefined") {
 
 export function CtaSection() {
     const ctaRef = useRef<HTMLElement>(null)
+    const [success, setSuccess] = useState(false)
+    const [isPending, setIsPending] = useState(false)
 
     useGSAP(() => {
         // CTA Section animation
@@ -54,30 +57,61 @@ export function CtaSection() {
                             Join our waitlist to get early access, exclusive updates, and priority launch offers.
                         </p>
 
-                        <div className="w-full max-w-md">
-                            <label
-                                htmlFor="email-cta"
-                                className="text-sm font-medium text-white mb-3 block pl-1"
-                            >
-                                Email
-                            </label>
-                            <div className="relative flex items-center">
-                                <input
-                                    id="email-cta"
-                                    name="email"
-                                    type="email"
-                                    autoComplete="email"
-                                    placeholder="jane@example.com"
-                                    className="w-full bg-white/10 border border-white/20 rounded-full py-4 pl-6 pr-44 text-white placeholder:text-white/30 focus:outline-none focus:border-[#FF5733]/50 transition-colors backdrop-blur-sm"
-                                />
-                                <div className="absolute right-2 top-2 bottom-2">
-                                    <WaitlistButton
-                                        className="h-full rounded-full px-6"
-                                        variant="default"
-                                    />
+                        {success ? (
+                            <div className="flex flex-col items-start justify-center py-4 space-y-4 w-full max-w-md">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-12 h-12 bg-[#d14e30]/20 rounded-full flex items-center justify-center">
+                                        <svg className="w-6 h-6 text-[#d14e30]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h3 className="text-xl font-bold text-white">You're on the list!</h3>
+                                        <p className="text-white/70 text-sm">
+                                            We'll be in touch soon.
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        ) : (
+                            <form action={async (formData) => {
+                                setIsPending(true)
+                                const result = await addToWaitlist(null, formData)
+                                setIsPending(false)
+                                if (result.success) {
+                                    setSuccess(true)
+                                } else {
+                                    alert(result.message)
+                                }
+                            }} className="w-full max-w-md">
+                                <label
+                                    htmlFor="email-cta"
+                                    className="text-sm font-medium text-white mb-3 block pl-1"
+                                >
+                                    Email
+                                </label>
+                                <div className="relative flex items-center">
+                                    <input
+                                        id="email-cta"
+                                        name="email"
+                                        type="email"
+                                        autoComplete="email"
+                                        required
+                                        placeholder="jane@example.com"
+                                        className="w-full bg-white/10 border border-white/20 rounded-full py-4 pl-6 pr-44 text-white placeholder:text-white/30 focus:outline-none focus:border-[#FF5733]/50 transition-colors backdrop-blur-sm"
+                                    />
+                                    <div className="absolute right-2 top-2 bottom-2">
+                                        <button
+                                            type="submit"
+                                            disabled={isPending}
+                                            className="h-full rounded-full px-6 bg-[#d14e30] hover:bg-[#b04026] text-white transition-all duration-300 transform disabled:opacity-70 disabled:cursor-not-allowed"
+                                        >
+                                            {isPending ? "Joining..." : "Join Waitlist"}
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        )}
                     </div>
                 </div>
             </div>

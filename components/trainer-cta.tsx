@@ -11,29 +11,12 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import { cn } from "@/lib/utils"
+import { submitTrainerApplication } from "@/app/actions"
 
 export function TrainerCTA() {
-    const [formData, setFormData] = useState({
-        name: "",
-        email: "",
-        socialHandle: "",
-        platform: "",
-    })
+    const [isPending, setIsPending] = useState(false)
+    const [success, setSuccess] = useState(false)
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault()
-
-        // Here you would typically send this data to your backend
-    }
-
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target
-        setFormData((prev) => ({ ...prev, [name]: value }))
-    }
-
-    const handlePlatformChange = (value: string) => {
-        setFormData((prev) => ({ ...prev, platform: value }))
-    }
 
     return (
         <section id="trainer-cta" className="py-16 bg-black">
@@ -58,88 +41,108 @@ export function TrainerCTA() {
                             We&apos;re opening Icon to a select number of elite coaches in the early access phase.
                         </p>
 
-                        <form onSubmit={handleSubmit} className="w-full max-w-md space-y-4">
-                            {/* Name Input */}
-                            <div>
-                                <label htmlFor="name" className="text-sm font-medium text-white mb-2 block pl-1">
-                                    Name
-                                </label>
-                                <input
-                                    id="name"
-                                    type="text"
-                                    name="name"
-                                    autoComplete="name"
-                                    placeholder="Your Name"
-                                    required
-                                    value={formData.name}
-                                    onChange={handleInputChange}
-                                    className="w-full h-[50px] bg-white/10 border border-white/20 rounded-full px-6 text-white placeholder:text-white/30 focus:outline-none focus:border-[#3f93cb]/50 transition-colors backdrop-blur-sm"
-                                />
+                        {/* Success State */}
+                        {success ? (
+                            <div className="flex flex-col items-center justify-center p-8 space-y-4 bg-white/10 rounded-2xl border border-white/20 w-full max-w-md text-center">
+                                <div className="w-16 h-16 bg-[#3f93cb]/20 rounded-full flex items-center justify-center mb-2">
+                                    <svg className="w-8 h-8 text-[#3f93cb]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <h3 className="text-2xl font-bold text-white">Application Received!</h3>
+                                <p className="text-white/70">
+                                    Thanks for your interest in becoming an Icon. We'll be reviewing your application and will be in touch soon.
+                                </p>
                             </div>
+                        ) : (
+                            <form action={async (formData) => {
+                                setIsPending(true)
+                                const result = await submitTrainerApplication(null, formData)
+                                setIsPending(false)
+                                if (result.success) {
+                                    setSuccess(true)
+                                } else {
+                                    // Handle error (optional: add error state to show message)
+                                    alert(result.message)
+                                }
+                            }} className="w-full max-w-md space-y-4">
+                                {/* Name Input */}
+                                <div>
+                                    <label htmlFor="name" className="text-sm font-medium text-white mb-2 block pl-1">
+                                        Name
+                                    </label>
+                                    <input
+                                        id="name"
+                                        type="text"
+                                        name="name"
+                                        autoComplete="name"
+                                        placeholder="Your Name"
+                                        required
+                                        className="w-full h-[50px] bg-white/10 border border-white/20 rounded-full px-6 text-white placeholder:text-white/30 focus:outline-none focus:border-[#3f93cb]/50 transition-colors backdrop-blur-sm"
+                                    />
+                                </div>
 
-                            {/* Email Input */}
-                            <div>
-                                <label htmlFor="email" className="text-sm font-medium text-white mb-2 block pl-1">
-                                    Email
-                                </label>
-                                <input
-                                    id="email"
-                                    type="email"
-                                    name="email"
-                                    autoComplete="email"
-                                    placeholder="you@example.com"
-                                    required
-                                    value={formData.email}
-                                    onChange={handleInputChange}
-                                    className="w-full h-[50px] bg-white/10 border border-white/20 rounded-full px-6 text-white placeholder:text-white/30 focus:outline-none focus:border-[#3f93cb]/50 transition-colors backdrop-blur-sm"
-                                />
-                            </div>
+                                {/* Email Input */}
+                                <div>
+                                    <label htmlFor="email" className="text-sm font-medium text-white mb-2 block pl-1">
+                                        Email
+                                    </label>
+                                    <input
+                                        id="email"
+                                        type="email"
+                                        name="email"
+                                        autoComplete="email"
+                                        placeholder="you@example.com"
+                                        required
+                                        className="w-full h-[50px] bg-white/10 border border-white/20 rounded-full px-6 text-white placeholder:text-white/30 focus:outline-none focus:border-[#3f93cb]/50 transition-colors backdrop-blur-sm"
+                                    />
+                                </div>
 
-                            {/* Social Handle Input with Selector */}
-                            <div>
-                                <label htmlFor="socialHandle" className="text-sm font-medium text-white mb-2 block pl-1">
-                                    Social Media Handle
-                                </label>
-                                <div className="flex gap-2">
-                                    <div className="w-[140px] shrink-0">
-                                        <Select name="platform" onValueChange={handlePlatformChange} required>
-                                            <SelectTrigger aria-label="Social Media Platform" className="w-full h-[50px] rounded-full bg-white/10 border-white/20 text-white focus:ring-[#3f93cb]/50">
-                                                <SelectValue placeholder="Platform" />
-                                            </SelectTrigger>
-                                            <SelectContent className="bg-zinc-900 border-white/10 text-white">
-                                                <SelectItem value="instagram">Instagram</SelectItem>
-                                                <SelectItem value="tiktok">TikTok</SelectItem>
-                                                <SelectItem value="youtube">YouTube</SelectItem>
-                                                <SelectItem value="twitter">X / Twitter</SelectItem>
-                                                <SelectItem value="other">Other</SelectItem>
-                                            </SelectContent>
-                                        </Select>
-                                    </div>
-                                    <div className="flex-1">
-                                        <input
-                                            id="socialHandle"
-                                            type="text"
-                                            name="socialHandle"
-                                            autoComplete="username"
-                                            placeholder="@handle"
-                                            required
-                                            value={formData.socialHandle}
-                                            onChange={handleInputChange}
-                                            className="w-full h-[50px] bg-white/10 border border-white/20 rounded-full px-6 text-white placeholder:text-white/30 focus:outline-none focus:border-[#3f93cb]/50 transition-colors backdrop-blur-sm"
-                                        />
+                                {/* Social Handle Input with Selector */}
+                                <div>
+                                    <label htmlFor="socialHandle" className="text-sm font-medium text-white mb-2 block pl-1">
+                                        Social Media Handle
+                                    </label>
+                                    <div className="flex gap-2">
+                                        <div className="w-[140px] shrink-0">
+                                            <Select name="platform" required>
+                                                <SelectTrigger aria-label="Social Media Platform" className="w-full h-[50px] rounded-full bg-white/10 border-white/20 text-white focus:ring-[#3f93cb]/50">
+                                                    <SelectValue placeholder="Platform" />
+                                                </SelectTrigger>
+                                                <SelectContent className="bg-zinc-900 border-white/10 text-white">
+                                                    <SelectItem value="instagram">Instagram</SelectItem>
+                                                    <SelectItem value="tiktok">TikTok</SelectItem>
+                                                    <SelectItem value="youtube">YouTube</SelectItem>
+                                                    <SelectItem value="twitter">X / Twitter</SelectItem>
+                                                    <SelectItem value="other">Other</SelectItem>
+                                                </SelectContent>
+                                            </Select>
+                                        </div>
+                                        <div className="flex-1">
+                                            <input
+                                                id="socialHandle"
+                                                type="text"
+                                                name="socialHandle"
+                                                autoComplete="username"
+                                                placeholder="@handle"
+                                                required
+                                                className="w-full h-[50px] bg-white/10 border border-white/20 rounded-full px-6 text-white placeholder:text-white/30 focus:outline-none focus:border-[#3f93cb]/50 transition-colors backdrop-blur-sm"
+                                            />
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div className="pt-4">
-                                <ApplyNowButton
-                                    className="w-full rounded-full h-[54px] text-lg"
-                                    variant="default"
-                                >
-                                    Apply Now
-                                </ApplyNowButton>
-                            </div>
-                        </form>
+                                <div className="pt-4">
+                                    <ApplyNowButton
+                                        className="w-full rounded-full h-[54px] text-lg"
+                                        variant="default"
+                                        disabled={isPending}
+                                    >
+                                        {isPending ? "Applying..." : "Apply Now"}
+                                    </ApplyNowButton>
+                                </div>
+                            </form>
+                        )}
                     </div>
                 </div>
             </div>

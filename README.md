@@ -68,3 +68,140 @@ pnpm start
 - **Components:** [Radix UI](https://www.radix-ui.com/) & [Lucide React](https://lucide.dev/)
 - **Forms:** [React Hook Form](https://react-hook-form.com/) & [Zod](https://zod.dev/)
 - **Charts:** [Recharts](https://recharts.org/)
+
+---
+
+## Production Deployment
+
+This project is deployed on a **Hostinger VPS** running **Ubuntu 24.04** with **CloudPanel** and **Cloudflare CDN**.
+
+### Server Details
+
+| Component | Details |
+|-----------|---------|
+| **VPS Provider** | Hostinger |
+| **OS** | Ubuntu 24.04 LTS |
+| **Control Panel** | CloudPanel |
+| **Process Manager** | PM2 |
+| **CDN** | Cloudflare |
+| **SSL** | Let's Encrypt |
+
+### Deployment Workflow
+
+#### 1. Push Changes to Git
+
+```bash
+git add .
+git commit -m "Your commit message"
+git push origin main
+```
+
+#### 2. Deploy to VPS
+
+SSH into the server and run:
+
+```bash
+# Connect as site user
+ssh icontraining@YOUR_VPS_IP
+
+# Navigate to project
+cd ~/htdocs/www.icontraining.app/Icon-website-vercel
+
+# Pull latest changes
+git pull origin main
+
+# Install dependencies (if package.json changed)
+npm install
+
+# Build for production
+npm run build
+
+# Restart PM2
+pm2 restart ecosystem.config.js
+
+# Or if using named process
+pm2 restart icon-website
+```
+
+#### 3. Clear Cloudflare Cache (if needed)
+
+After deployment, purge Cloudflare cache:
+- Go to Cloudflare Dashboard → Caching → Configuration → **Purge Everything**
+
+### PM2 Commands
+
+| Command | Description |
+|---------|-------------|
+| `pm2 status` | View running processes |
+| `pm2 logs icon-website` | View application logs |
+| `pm2 restart icon-website` | Restart the app |
+| `pm2 reload ecosystem.config.js` | Zero-downtime restart |
+| `pm2 monit` | Real-time monitoring |
+
+### Quick Deploy Script
+
+Create a `deploy.sh` script on the VPS for faster deployments:
+
+```bash
+#!/bin/bash
+cd ~/htdocs/www.icontraining.app/Icon-website-vercel
+git pull origin main
+npm install
+npm run build
+pm2 restart icon-website
+echo "✅ Deployment complete!"
+```
+
+Make it executable: `chmod +x deploy.sh`
+
+Run with: `./deploy.sh`
+
+### Environment Variables
+
+Create `.env.production` on the VPS with:
+
+```env
+MAIL_API_KEY=your_mailerlite_api_key
+MAIL_USER_GROUP_ID=your_user_group_id
+MAIL_TRAINER_GROUP_ID=your_trainer_group_id
+GMAIL_USER=your_gmail_address
+GMAIL_APP_PASSWORD=your_gmail_app_password
+NODE_ENV=production
+```
+
+> ⚠️ Never commit `.env.production` to git!
+
+### Cloudflare Settings
+
+| Setting | Value |
+|---------|-------|
+| **SSL Mode** | Full (Strict) |
+| **Always Use HTTPS** | Enabled |
+| **Auto Minify** | JS, CSS, HTML |
+| **Brotli** | Enabled |
+| **HTTP/3** | Enabled |
+
+### Troubleshooting
+
+**App not starting:**
+```bash
+pm2 logs icon-website --lines 50
+```
+
+**Check if port 3000 is in use:**
+```bash
+sudo netstat -tlnp | grep 3000
+```
+
+**Restart PM2 completely:**
+```bash
+pm2 delete all
+pm2 start ecosystem.config.js
+pm2 save
+```
+
+**SSL certificate renewal:**
+```bash
+# Via CloudPanel UI: Sites → SSL/TLS → Actions → Renew
+# Let's Encrypt auto-renews 30 days before expiry
+```

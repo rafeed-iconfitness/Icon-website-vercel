@@ -34,6 +34,30 @@ export const metadata: Metadata = {
   appleWebApp: {
     title: "Icon",
   },
+  openGraph: {
+    title: "Icon - AI-Powered Fitness Coaching",
+    description:
+      "Track your fitness journey with AI-powered insights and expert trainers. Build lasting habits that lead to real results.",
+    url: "https://icontraining.app",
+    siteName: "Icon",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Icon - AI-Powered Fitness Coaching",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Icon - AI-Powered Fitness Coaching",
+    description:
+      "Track your fitness journey with AI-powered insights and expert trainers. Build lasting habits that lead to real results.",
+    images: ["/og-image.png"],
+  },
 }
 
 export default function RootLayout({

@@ -92,7 +92,7 @@ export function WaitlistDialog({
                                         <Input
                                             name="email"
                                             type="email"
-                                            placeholder="jane@framer.com"
+                                            placeholder=""
                                             required
                                             className="bg-transparent border-white/30 text-white placeholder:text-white/40 h-12 rounded-lg focus-visible:ring-[#FF5733]"
                                         />

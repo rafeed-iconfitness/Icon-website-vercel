@@ -90,7 +90,7 @@ export function CtaSection() {
                                         type="email"
                                         autoComplete="email"
                                         required
-                                        placeholder="jane@example.com"
+                                        placeholder=""
                                         className="w-full bg-white/10 border border-white/20 rounded-full py-4 pl-6 pr-44 text-white placeholder:text-white/30 focus:outline-none focus:border-[#FF5733]/50 transition-colors backdrop-blur-sm"
                                     />
                                     <div className="absolute right-2 top-2 bottom-2">

@@ -65,7 +65,7 @@ export function ContactForm() {
         <Input
           id="name"
           type="text"
-          placeholder="Your full name"
+          placeholder=""
           value={formData.name}
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
           required
@@ -89,7 +89,7 @@ export function ContactForm() {
         <Input
           id="subject"
           type="text"
-          placeholder="What is this about?"
+          placeholder=""
           value={formData.subject}
           onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
           required
@@ -100,7 +100,7 @@ export function ContactForm() {
         <Label htmlFor="message">Message *</Label>
         <Textarea
           id="message"
-          placeholder="Tell us more..."
+          placeholder=""
           value={formData.message}
           onChange={(e) => setFormData({ ...formData, message: e.target.value })}
           rows={5}

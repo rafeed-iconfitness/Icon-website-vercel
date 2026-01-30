@@ -74,7 +74,7 @@ export function TrainerCTA() {
                                         type="text"
                                         name="name"
                                         autoComplete="name"
-                                        placeholder="Your Name"
+                                        placeholder=""
                                         required
                                         className="w-full h-[50px] bg-white/10 border border-white/20 rounded-full px-6 text-white placeholder:text-white/30 focus:outline-none focus:border-[#3f93cb]/50 transition-colors backdrop-blur-sm"
                                     />

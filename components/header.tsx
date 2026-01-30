@@ -14,7 +14,7 @@ import gsap from "gsap"
 
 const navLinks = [
   { name: 'Home', href: '/' },
-  { name: 'Trainers', href: '/trainers' },
+  { name: 'Be An Icon', href: '/trainers' },
   { name: 'About Us', href: '/about-us' },
   { name: 'Contact Us', href: '#' },
 ]

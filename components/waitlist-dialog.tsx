@@ -89,10 +89,11 @@ export function WaitlistDialog({
                             <form action={handleSubmit} className="w-full max-w-md space-y-4">
                                 <div className="flex flex-col sm:flex-row gap-3">
                                     <div className="flex-1">
+
                                         <Input
                                             name="email"
                                             type="email"
-                                            placeholder=""
+                                            placeholder="Email"
                                             required
                                             className="bg-transparent border-white/30 text-white placeholder:text-white/40 h-12 rounded-lg focus-visible:ring-[#FF5733]"
                                         />

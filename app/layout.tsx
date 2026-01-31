@@ -1,7 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
 import { Barlow_Condensed } from "next/font/google"
-import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 
 const barlowCondensed = Barlow_Condensed({
@@ -63,7 +62,6 @@ export default function RootLayout({
     <html lang="en" className={barlowCondensed.variable}>
       <body className={`font-sans antialiased`}>
         {children}
-        <Analytics />
       </body>
     </html>
   )

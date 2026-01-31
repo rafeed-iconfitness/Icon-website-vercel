@@ -126,7 +126,7 @@ export function Footer() {
 
                 {/* Dropdown Menu */}
                 {legalDropdownOpen && (
-                  <div className="absolute right-0 bottom-full mb-2 w-56 rounded-xl bg-zinc-900 border border-white/10 shadow-xl py-2 z-50">
+                  <div className="absolute left-1/2 -translate-x-1/2 md:left-auto md:right-0 md:translate-x-0 bottom-full mb-2 w-56 rounded-xl bg-zinc-900 border border-white/10 shadow-xl py-2 z-50">
                     {legalPages.map((page) => (
                       <Link
                         key={page.href}

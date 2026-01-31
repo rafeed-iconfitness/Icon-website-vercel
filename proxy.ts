@@ -2,14 +2,20 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
 export function proxy(request: NextRequest) {
-    const { pathname } = request.nextUrl
+    const url = request.nextUrl.clone()
+    const rawUrl = request.url
 
-    // Normalize multiple consecutive slashes to a single slash
-    // e.g., "//" -> "/", "///page" -> "/page"
-    if (pathname !== '/' && pathname.includes('//')) {
-        const normalizedPathname = pathname.replace(/\/+/g, '/')
-        const url = request.nextUrl.clone()
-        url.pathname = normalizedPathname
+    // Check for double slashes in the path portion of the raw URL
+    // This catches cases where the parsed pathname might be normalized
+    const urlObj = new URL(rawUrl)
+    const pathWithSearch = rawUrl.substring(urlObj.origin.length)
+
+    // Detect multiple consecutive slashes in the path (after the origin)
+    if (/\/{2,}/.test(pathWithSearch)) {
+        // Normalize multiple slashes to single slash
+        const normalizedPath = pathWithSearch.replace(/\/+/g, '/')
+        url.pathname = normalizedPath.split('?')[0] || '/'
+        url.search = normalizedPath.includes('?') ? normalizedPath.substring(normalizedPath.indexOf('?')) : ''
         return NextResponse.redirect(url, 301)
     }
 

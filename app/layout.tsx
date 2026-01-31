@@ -10,7 +10,6 @@ const barlowCondensed = Barlow_Condensed({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://icontraining.app"),
   title: "Icon - AI-Powered Fitness Coaching",
   description:
     "Track your fitness journey with AI-powered insights and expert trainers. Build lasting habits that lead to real results.",
